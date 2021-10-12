@@ -87,8 +87,8 @@ Valores:
 	- `5`: Região Centro-Oeste (CO)
 
 - Modalidade de Ensino - `CO_MODALIDADE`:
-	- `1`: Educação Presencial
-	- `2`: Educação a Distância - **SELECIONADO**
+	- `1`: Educação Presencial - **SELECIONADO**
+	- `2`: Educação a Distância
 
 ### Aluno
 
