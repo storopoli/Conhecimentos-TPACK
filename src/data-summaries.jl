@@ -1,11 +1,11 @@
 using Arrow
 using DataFrames
 
-df2015 = Arrow.Table(joinpath(pwd(), "data", "MICRODADOS_ENADE_2015.arrow")) |> DataFrame
-df2016 = Arrow.Table(joinpath(pwd(), "data", "MICRODADOS_ENADE_2016.arrow")) |> DataFrame
-df2017 = Arrow.Table(joinpath(pwd(), "data", "MICRODADOS_ENADE_2017.arrow")) |> DataFrame
-df2018 = Arrow.Table(joinpath(pwd(), "data", "MICRODADOS_ENADE_2018.arrow")) |> DataFrame
-df2019 = Arrow.Table(joinpath(pwd(), "data", "MICRODADOS_ENADE_2019.arrow")) |> DataFrame
+df2015 = Arrow.Table(joinpath(pwd(),  "data", "ENADE", "MICRODADOS_ENADE_2015.arrow")) |> DataFrame
+df2016 = Arrow.Table(joinpath(pwd(),  "data", "ENADE", "MICRODADOS_ENADE_2016.arrow")) |> DataFrame
+df2017 = Arrow.Table(joinpath(pwd(),  "data", "ENADE", "MICRODADOS_ENADE_2017.arrow")) |> DataFrame
+df2018 = Arrow.Table(joinpath(pwd(),  "data", "ENADE", "MICRODADOS_ENADE_2018.arrow")) |> DataFrame
+df2019 = Arrow.Table(joinpath(pwd(),  "data", "ENADE", "MICRODADOS_ENADE_2019.arrow")) |> DataFrame
 
 # Variables of Interest
 vars = [

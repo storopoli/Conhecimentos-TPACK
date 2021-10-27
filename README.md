@@ -22,7 +22,7 @@ Valores:
 - `7` - Não se aplica
 - `8` - Não sei responder
 
-- `T` (Tecnologia):
+- `TP` (Tecnologia + Pedagogia):
 	- `QE_I58`: Os professores utilizarão tecnologias da informação e comunicação (TICs) como estratégia de ensino (projetor, multimídia, laboratórios de informática, ambiente virtual de aprendizagem).
 - `P` (Pedagogia):
 	- `QE_I29`: As metodologias de ensino utilizadas no curso desafiaram você a aprofundar conhecimentos e desenvolver competências reflexivas e críticas.

@@ -2,39 +2,38 @@ using Arrow
 using CSV
 using DataFrames
 
-# For loop is complicated because files
-# are not consistent
-df2015 = CSV.read(joinpath(pwd(), "data", "MICRODADOS_ENADE_2015.txt"), DataFrame;
-                  delim=';', decimal=',', missingstring=["", "NA"],
-                  types=Dict(
-                            :DS_VT_ACE_OFG => String,
-                            :DS_VT_ACE_OCE => String))
-Arrow.write(joinpath(pwd(), "data", "MICRODADOS_ENADE_2015.arrow"), df2015; compress=:lz4)
+function csv2arrow_enade(year)
+    Arrow.write(
+        joinpath(pwd(), "data", "ENADE", "MICRODADOS_ENADE_$(year).arrow"),
+        CSV.read(
+            joinpath(pwd(), "data", "ENADE", "MICRODADOS_ENADE_$(year).txt"),
+            DataFrame;
+            delim=';',
+            decimal=',',
+            missingstring=["", "NA"],
+            types=Dict(:DS_VT_ACE_OFG => String, :DS_VT_ACE_OCE => String),
+        );
+        compress=:lz4,
+    )
+    return nothing
+end
 
-df2016 = CSV.read(joinpath(pwd(), "data", "MICRODADOS_ENADE_2016.txt"), DataFrame;
-                  delim=';', decimal=',', missingstring=["", "NA"],
-                  types=Dict(
-                            :DS_VT_ACE_OFG => String,
-                            :DS_VT_ACE_OCE => String))
-Arrow.write(joinpath(pwd(), "data", "MICRODADOS_ENADE_2016.arrow"), df2016; compress=:lz4)
+function csv2arrow_censo(year)
+    for dm in ["ALUNO", "IES", "LOCAL_OFERTA", "DOCENTE", "CURSO"]
+        Arrow.write(
+            joinpath(pwd(), "data", "Censo", "DM_$(dm)_$(year).arrow"),
+            CSV.read(
+                joinpath(pwd(), "data", "Censo", "DM_$(dm)_$(year).csv"),
+                DataFrame;
+                delim='|',
+                decimal=',',
+                missingstring=["", "NA"],
+            );
+            compress=:lz4,
+        )
+    end
+    return nothing
+end
 
-df2017 = CSV.read(joinpath(pwd(), "data", "MICRODADOS_ENADE_2017.txt"), DataFrame;
-                  delim=';', decimal=',', missingstring=["", "NA"],
-                  types=Dict(
-                            :DS_VT_ACE_OFG => String,
-                            :DS_VT_ACE_OCE => String))
-Arrow.write(joinpath(pwd(), "data", "MICRODADOS_ENADE_2017.arrow"), df2017; compress=:lz4)
-
-df2018 = CSV.read(joinpath(pwd(), "data", "MICRODADOS_ENADE_2018.txt"), DataFrame;
-                  delim=';', decimal=',', missingstring=["", "NA"],
-                  types=Dict(
-                            :DS_VT_ACE_OFG => String,
-                            :DS_VT_ACE_OCE => String))
-Arrow.write(joinpath(pwd(), "data", "MICRODADOS_ENADE_2018.arrow"), df2018; compress=:lz4)
-
-df2019 = CSV.read(joinpath(pwd(), "data", "MICRODADOS_ENADE_2019.txt"), DataFrame;
-                  delim=';', decimal=',', missingstring=["", "NA"],
-                  types=Dict(
-                            :DS_VT_ACE_OFG => String,
-                            :DS_VT_ACE_OCE => String))
-Arrow.write(joinpath(pwd(), "data", "MICRODADOS_ENADE_2019.arrow"), df2019; compress=:lz4)
+map(csv2arrow_enade, 2015:2019)
+map(csv2arrow_censo, 2015:2019)
