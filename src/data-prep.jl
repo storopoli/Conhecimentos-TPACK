@@ -136,4 +136,4 @@ df = leftjoin(df, docente_grouped; on=[:CO_IES, :NU_ANO => :NU_ANO_CENSO])
 # 360,143 para 359,837
 dropmissing!(df)
 
-df |> Arrow.write(joinpath(pwd(), "data", "data.arrow"))
+df |> Arrow.write(joinpath(pwd(), "data", "data.arrow"); compress=:lz4)
