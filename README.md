@@ -22,16 +22,9 @@ Valores:
 - `7` - Não se aplica
 - `8` - Não sei responder
 
-- `TP` (Tecnologia + Pedagogia):
+- `TPK` (Tecnologia + Pedagogia + Conhecimento):
 	- `QE_I58`: Os professores utilizarão tecnologias da informação e comunicação (TICs) como estratégia de ensino (projetor, multimídia, laboratórios de informática, ambiente virtual de aprendizagem).
-- `P` (Pedagogia):
-	- `QE_I29`: As metodologias de ensino utilizadas no curso desafiaram você a aprofundar conhecimentos e desenvolver competências reflexivas e críticas.
-	- `QE_I30`: O curso propiciou experiências de aprendizagem inovadoras.
-	- `QE_I36`: O curso contribuiu para o desenvolvimento da sua capacidade de aprender e atualizar-se permanentemente.
-- `C` (Conteúdo):
-	- `QE_I28`: Os conteúdos abordados nas disciplinas do curso favoreceram sua atuação em estágios ou em atividades de iniciação profissional/
-	- `QE_I38`: Os planos de ensino apresentados pelos professores contribuíram para o desenvolvimento das atividades acadêmicas e para seus estudos.
-	- `QE_I49`: O curso propiciou acesso a conhecimentos atualizados e/ou contemporâneos em sua área de formação.
+- `PC` (Pedagogia + Conteúdo):
 	- `QE_I57`: Os professores demonstraram domínio dos conteúdos abordados nas disciplinas.
 
 ### IES
@@ -131,3 +124,57 @@ Valores:
 	- `E`: De 6 a 10 salários mínimos (R$ 5.724,01 a R$ 9.540,00)
 	- `F`: De 10 a 30 salários mínimos (R$ 9.540,01 a R$ 28.620,00)
 	- `G`: Acima de 30 salários mínimos (mais de R$ 28.620,00)
+
+## Variáveis do Censo do Ensino Superior
+
+### IES
+
+- Categoria Administrativa - `TP_CATEGORIA_ADMINISTRATIVA`:
+	- `1`, `2`, `3` e `7`: Pública
+	- `4`, `5`, `6`, `8` e `9`: Privada
+- Organização Acadêmica - `TP_ORGANIZACAO_ACADEMICA`:
+	- `1`: Universidade
+	- `2`: Centro Universitário
+	- `3`: Faculdade
+	- `4` e `5`: Centros Federais e Institutos Federais (removidos)
+- Biblioteca possui Internet - `IN_SERVICO_INTERNET`:
+	- `0`: Não
+	- `1`: Sim
+- Despesas de Investimentos realizadas pela IES ou Mantenedora - `VL_DESPESA_INVESTIMENTO`
+
+### CURSO
+
+- Grau Acadêmica - `TP_GRAU_ACADEMICO`:
+	- `1`: Bacharelado
+	- `2`: Licenciatura
+	- `3`: Tecnológico
+	- `4`: Bacharelado e Licenciatura (apenas 2009)
+- Modalidade de Ensino - `TP_MODALIDADE_ENSINO`:
+	- `1`: Educação Presencial - **SELECIONADO**
+	- `2`: Educação a Distância
+
+### Docente
+
+- Sexo - `TP_SEXO`:
+	- `1`: Feminino
+	- `2`: Masculino
+- Escolaridade - `TP_ESCOLARIDADE`:
+	- `1`: Sem Graduação
+	- `2`: Graduação
+	- `3`: Especialização
+	- `4`: Mestrado
+	- `5`: Doutorado
+- Regime de Trabalho - `TP_REGIME_TRABALHO`:
+	- `1`: Tempo Integral com Dedicação Exclusiva
+	- `2`: Tempo Integral sem Dedicação Exclusiva
+	- `3`: Tempo Parcial
+	- `4`: Horista
+- Idade - `NU_IDADE`
+- Cor/Raça - `TP_COR_RACA`:
+	- `0`: Não quero declarar
+	- `1`: Branca
+	- `2`: Preta
+	- `3`: Parda
+	- `4`: Amarela
+	- `5`: Indígena
+	- `9`: Não disponível
