@@ -25,7 +25,27 @@ Valores:
 - `TPK` (Tecnologia + Pedagogia + Conhecimento):
 	- `QE_I58`: Os professores utilizarão tecnologias da informação e comunicação (TICs) como estratégia de ensino (projetor, multimídia, laboratórios de informática, ambiente virtual de aprendizagem).
 - `PC` (Pedagogia + Conteúdo):
+    - `QE_I28`: Os conteúdos abordados nas disciplinas do curso favoreceram sua atuação em estágios ou em atividades de iniciação profissional.
+    - `QE_I29`: As referências bibliográficas indicadas pelos professores nos planos de ensino contribuíram para seus estudos e aprendizagens.
+    - `QE_I49`: O curso propiciou acesso a conhecimentos atualizados e/ou contemporâneos em sua área de formação.
 	- `QE_I57`: Os professores demonstraram domínio dos conteúdos abordados nas disciplinas.
+- `PK` (Pedagogia + Conhecimento):
+    - `QE_I40`: Foram oferecidas oportunidades para os estudantes superarem problemas e dificuldades relacionados ao processo de formação.
+    - `QE_I29`: As metodologias de ensino utilizadas no curso desafiaram você a aprofundar conhecimentos e desenvolver competências reflexivas e críticas.
+    - `QE_I30`: O curso propiciou experiências de aprendizagem inovadoras.
+    - `QE_I32`: No curso você teve oportunidade de aprender a trabalhar em equipe.
+    - `QE_I36`: O curso contribuiu para o desenvolvimento da sua capacidade de aprender e atualizar-se permanentemente.
+    - `QE_I37`: As relações professor-aluno ao longo do curso estimularam você a estudar e aprender.
+    - `QE_I56`: Os professores apresentaram disponibilidade para atender os estudantes fora do horário das aulas.
+- `PCK` (Pedagogia + Conteúdo + Conhecimento):
+    - `QE_I38`: Os planos de ensino apresentados pelos professores contribuíram para o desenvolvimento das atividades acadêmicas e para seus estudos.
+
+- Contexto:
+    - `QE_I61`: As condições de infraestrutura das salas de aula foram adequadas.
+    - `QE_I62`: Os equipamentos e materiais disponíveis para as aulas práticas foram adequados para a quantidade de estudantes.
+    - `QE_I63`: Os ambientes e equipamentos destinados às aulas práticas foram adequados ao curso.
+    - `QE_I64`: A biblioteca dispôs das referências bibliográficas que os estudantes necessitaram.
+    - `QE_I65`: A instituição contou com biblioteca virtual ou conferiu acesso a obras disponíveis em acervos virtuais.
 
 ### IES
 

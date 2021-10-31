@@ -14,7 +14,9 @@ df2019 = Arrow.Table(joinpath(pwd(),  "data", "ENADE", "MICRODADOS_ENADE_2019.ar
 vars = [
         :NU_ANO, :CO_IES,
         :NT_GER, :NT_FG, :NT_CE,                                         # NOTA
-        :QE_I58, :QE_I57,                                                # TPACK
+        :QE_I58, :QE_I28, :QE_I29, :QE_I49, :QE_I57, :QE_I40, :QE_I30,   # TPACK
+        :QE_I32, :QE_I36, :QE_I37, :QE_I56, :QE_I38,                     # TPACK
+        :QE_I61, :QE_I62, :QE_I63, :QE_I64, :QE_I65,                     # TPACK Contexto
         :CO_CATEGAD, :CO_ORGACAD,                                        # IES
         :CO_GRUPO, :CO_REGIAO_CURSO, :CO_MODALIDADE,                     # CURSO
         :NU_IDADE, :TP_SEXO, :QE_I01, :QE_I02, :QE_I05, :QE_I17, :QE_I08 # ALUNO
@@ -47,8 +49,11 @@ filter!(row -> row.CO_GRUPO in cursos, df)
 dropmissing!(df, :NT_GER)
 
 # Missings das Outras Variáveis
-# 360,143 alunos
-dropmissing!(df, [:QE_I58, :QE_I57,
+# 318,627 alunos
+dropmissing!(df, [
+                  :QE_I58, :QE_I28, :QE_I29, :QE_I49, :QE_I57, :QE_I40, :QE_I30,
+                  :QE_I32, :QE_I36, :QE_I37, :QE_I56, :QE_I38,
+                  :QE_I61, :QE_I62, :QE_I63, :QE_I64, :QE_I65,
                   :CO_CATEGAD, :CO_ORGACAD,
                   :CO_GRUPO, :CO_REGIAO_CURSO, :CO_MODALIDADE,
                   :NU_IDADE, :TP_SEXO, :QE_I01, :QE_I02, :QE_I05, :QE_I17, :QE_I08
@@ -133,7 +138,7 @@ docente_grouped = combine(groupby(docente, [:NU_ANO_CENSO, :CO_IES]),
 df = leftjoin(df, ies; on=[:CO_IES, :NU_ANO => :NU_ANO_CENSO])
 df = leftjoin(df, docente_grouped; on=[:CO_IES, :NU_ANO => :NU_ANO_CENSO])
 
-# 360,143 para 359,837
+# 318,627 para 318,386
 dropmissing!(df)
 
 df |> Arrow.write(joinpath(pwd(), "data", "data.arrow"); compress=:lz4)
