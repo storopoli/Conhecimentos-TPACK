@@ -53,9 +53,9 @@ Valores:
 	- `10005`, `10008`, `118`, `120`, `121`, `10006` e `10009`: IES privada
 	- `93`, `17634`, `115`, `116`, `10001`, `10002` e `10003`: IES pública
 - Organização Acadêmica - `CO_ORGACAD`:
-	- `10022`: Faculdade
-	- `10020`: Centro Universitário
-	- `10028`: Universidade
+	- `10022`: Faculdade `1`
+	- `10020`: Centro Universitário `2`
+	- `10028`: Universidade `3`
 	- `10019` e `10026`: Centros Federais e Institutos Federais (removidos)
 
 ### Curso

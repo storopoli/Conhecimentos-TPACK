@@ -1,4 +1,5 @@
 using Arrow
+using CategoricalArrays
 using DataFrames
 using Statistics
 
@@ -140,5 +141,32 @@ df = leftjoin(df, docente_grouped; on=[:CO_IES, :NU_ANO => :NU_ANO_CENSO])
 
 # 318,627 para 318,386
 dropmissing!(df)
+
+# Codificação de Categóricas
+transform!(df,
+           :TP_SEXO => ByRow(x -> ifelse(x == "M", 1, 0)) => :TP_SEXO_MASC,
+           :QE_I01 => ByRow(x -> ifelse(x == "A", 1, 0)) => :QE_I01_SOLTEIRO,
+           :QE_I02 => ByRow(x -> ifelse(x == "A", 1, 0)) => :QE_I02_BRANCA,
+           :QE_I05 => (x -> categorical(x; levels=["A", "B", "C", "D", "E", "F"], ordered=true)) => :QE_I05_NUM,
+           :QE_I17 => ByRow(x -> ifelse(x == "A" || x == "D", 0, 1)) => :QE_I17_PRIVADO,
+           :QE_I08 => (x -> categorical(x; levels=["A", "B", "C", "D", "E", "F", "G"], ordered=true)) => :QE_I08_NUM)
+select!(df, Not([:TP_SEXO, :QE_I01, :QE_I02, :QE_I05, :QE_I17, :QE_I08]))
+transform!(df, [:QE_I05_NUM, :QE_I08_NUM] .=> ByRow(levelcode); renamecols=false)
+
+# Removendo 7 não se aplica e 8 não sei responder
+# 318,386 para 288,064
+transform!(df, names(df)[6:22] .=> ByRow(x -> ifelse(x >= 7, missing, x)); renamecols=false)
+dropmissing!(df, Between(:QE_I56, :QE_I65))
+
+# Tipo IES
+# Removidos Centros Federais e Institutos Federais
+# 288,064 para 287,008
+filter!(row -> row.CO_ORGACAD ∉ [10026, 10019], df)
+transform!(df,
+           :CO_CATEGAD => ByRow(x -> ifelse(x ∈ [10005, 10008, 118, 120, 121, 10006, 10009], 1, 0)) => :CO_CATEGAD_PRIVADA,
+           :CO_ORGACAD => (x -> categorical(x; levels=[10022, 10020, 10028], ordered=true)) => :CO_ORGACAD_NUM)
+select!(df, Not([:CO_CATEGAD, :CO_ORGACAD]))
+transform!(df, :CO_ORGACAD_NUM => ByRow(levelcode); renamecols=false)
+select!(df, Between(1, :CO_IES), :CO_CATEGAD_PRIVADA, :CO_ORGACAD_NUM, :)
 
 df |> Arrow.write(joinpath(pwd(), "data", "data.arrow"); compress=:lz4)
