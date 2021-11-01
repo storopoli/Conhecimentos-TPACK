@@ -1,87 +1,172 @@
-using AlgebraOfGraphics
 using Arrow
-using CairoMakie
+using CategoricalArrays
 using DataFrames
+using GLMakie
 using Statistics
-using AlgebraOfGraphics: density
 
 df = Arrow.Table(joinpath(pwd(), "data", "data.arrow")) |> DataFrame
 
-set_aog_theme!()
+# Theme
+my_theme = Theme(; fontsize=22, font="CMU Serif", Axis=(; titlesize=30))
+set_theme!(my_theme)
+const blue = RGBAf(0.0, 0.447059, 0.698039, 1.0)
+const orange = RGBAf(0.901961, 0.623529, 0.0, 1.0)
+const green = RGBAf(0.0, 0.619608, 0.45098, 1.0)
 
-nt = [:NT_GER, :NT_FG, :NT_CE]
-tpack = Symbol.(names(df, Between(:QE_I58, :QE_I65)))
-control = ["NU_IDADE"] ∪ names(df, Between(:TP_SEXO_MASC, :QE_I08_NUM))
-df_nt_long = stack(select(df, [:CO_CATEGAD_PRIVADA, :CO_ORGACAD_NUM] ∪ nt), nt)
+# Density Nota ENADE
+f = Figure(; resolution=(1600, 1200))
+ax = Axis(
+    f[1, 1];
+    title="Densidade Notas do ENADE",
+    xlabel="Nota",
+    ylabel="",
+    yticksvisible=false,
+    yticklabelsvisible=false,
+)
+density!(ax, df.NT_GER; label="Geral")
+density!(ax, df.NT_FG; label="FG")
+density!(ax, df.NT_CE; label="CE")
+axislegend(ax)
 
-# Density [NT_GER, NT_FG, NT_CE] long como X e Y
-density_nt = data(df) *
-    density() *
-    mapping(nt .=> "Nota ENADE") *
-    mapping(; color=dims(1) => renamer(["GER", "CE", "FG"]) => "Nota ENADE")
-
-fg_density_nt = draw(density_nt;
-     legend=(; position=:top, titleposition=:left, framevisible=true, padding=5),
-     axis=(; ylabel="", yticklabelsvisible=false, yticksvisible=false))
-
-save(joinpath(pwd(), "figures", "histograma_enade.png"), fg_density_nt; px_per_unit=3)
+save(joinpath(pwd(), "figures", "densidade_enade.png"), f)
 
 # Violin [NT_GER, NT_FG, NT_CE] long como X e Y
-# side e color :CO_CATEGAD_PRIVADA
-violin_nt = data(df_nt_long) *
-    mapping(
-        :variable => renamer(["NT_GER" => "GER", "NT_CE" => "CE", "NT_FG" => "FG"]) => "Nota ENADE",
-        :value => "";
-        color=:CO_CATEGAD_PRIVADA => renamer([0 => "Pública", 1 => "Privada"]) => "Tipo de IES",
-        side=:CO_CATEGAD_PRIVADA => renamer([0 => "Pública", 1 => "Privada"]) => "Tipo de IES",
-        col=:CO_ORGACAD_NUM => renamer([1 => "Faculdade", 2 => "Centro Universitário", 3 => "Universidade"]) => "Categoria de IES"
-            ) *
-    visual(Violin; show_median=true, width=0.95)
+# side :CO_CATEGAD_PRIVADA
+# color :CO_ORGACAD_NUM
+df_temp = stack(
+    select(df, [:CO_CATEGAD_PRIVADA, :CO_ORGACAD_NUM, :NT_GER, :NT_FG, :NT_CE]),
+    [:NT_GER, :NT_FG, :NT_CE],
+)
+transform!(
+    df_temp,
+    :variable => (x -> categorical(x; levels=["NT_GER", "NT_FG", "NT_CE"]));
+    renamecols=false,
+)
 
-fg_violin_nt = draw(violin_nt;
-    legend=(; position=:bottom, titleposition=:left, framevisible=true, padding=5))
+f = Figure(; resolution=(1600, 1200))
+ax = Axis(
+    f[1, 1];
+    title="Densidade Notas do ENADE versus Tipo e Categoria de IES",
+    xlabel="Nota",
+    xticks=(2:3:8, ["Geral", "FG", "CE"]),
+    ylabel="",
+)
+ys = filter(row -> row.variable == "NT_GER" && row.CO_ORGACAD_NUM == 1, df_temp)
+violin!(
+    ones(nrow(ys)) .+ 0,
+    ys.value;
+    side=ifelse.(ys.CO_CATEGAD_PRIVADA .== 0, :left, :right),
+    show_median=true,
+    width=0.95,
+    medianlinewidth=3,
+    color=blue,
+    label="Faculdade",
+)
+ys = filter(row -> row.variable == "NT_GER" && row.CO_ORGACAD_NUM == 2, df_temp)
+violin!(
+    ones(nrow(ys)) .+ 1,
+    ys.value;
+    side=ifelse.(ys.CO_CATEGAD_PRIVADA .== 0, :left, :right),
+    show_median=true,
+    width=0.95,
+    medianlinewidth=3,
+    color=orange,
+    label="Centro Universitário",
+)
+ys = filter(row -> row.variable == "NT_GER" && row.CO_ORGACAD_NUM == 3, df_temp)
+violin!(
+    ones(nrow(ys)) .+ 2,
+    ys.value;
+    side=ifelse.(ys.CO_CATEGAD_PRIVADA .== 0, :left, :right),
+    show_median=true,
+    width=0.95,
+    medianlinewidth=3,
+    color=green,
+    label="Universidade",
+)
+ys = filter(row -> row.variable == "NT_FG" && row.CO_ORGACAD_NUM == 1, df_temp)
+violin!(
+    ones(nrow(ys)) .+ 3,
+    ys.value;
+    side=ifelse.(ys.CO_CATEGAD_PRIVADA .== 0, :left, :right),
+    show_median=true,
+    width=0.95,
+    medianlinewidth=3,
+    color=blue,
+    label="Faculdade",
+)
+ys = filter(row -> row.variable == "NT_FG" && row.CO_ORGACAD_NUM == 2, df_temp)
+violin!(
+    ones(nrow(ys)) .+ 4,
+    ys.value;
+    side=ifelse.(ys.CO_CATEGAD_PRIVADA .== 0, :left, :right),
+    show_median=true,
+    width=0.95,
+    medianlinewidth=3,
+    color=orange,
+    label="Centro Universitário",
+)
+ys = filter(row -> row.variable == "NT_FG" && row.CO_ORGACAD_NUM == 3, df_temp)
+violin!(
+    ones(nrow(ys)) .+ 5,
+    ys.value;
+    side=ifelse.(ys.CO_CATEGAD_PRIVADA .== 0, :left, :right),
+    show_median=true,
+    width=0.95,
+    medianlinewidth=3,
+    color=green,
+    label="Universidade",
+)
+ys = filter(row -> row.variable == "NT_CE" && row.CO_ORGACAD_NUM == 1, df_temp)
+violin!(
+    ones(nrow(ys)) .+ 6,
+    ys.value;
+    side=ifelse.(ys.CO_CATEGAD_PRIVADA .== 0, :left, :right),
+    show_median=true,
+    width=0.95,
+    medianlinewidth=3,
+    color=blue,
+    label="Faculdade",
+)
+ys = filter(row -> row.variable == "NT_CE" && row.CO_ORGACAD_NUM == 2, df_temp)
+violin!(
+    ones(nrow(ys)) .+ 7,
+    ys.value;
+    side=ifelse.(ys.CO_CATEGAD_PRIVADA .== 0, :left, :right),
+    show_median=true,
+    width=0.95,
+    medianlinewidth=3,
+    color=orange,
+    label="Centro Universitário",
+)
+ys = filter(row -> row.variable == "NT_CE" && row.CO_ORGACAD_NUM == 3, df_temp)
+violin!(
+    ones(nrow(ys)) .+ 8,
+    ys.value;
+    side=ifelse.(ys.CO_CATEGAD_PRIVADA .== 0, :left, :right),
+    show_median=true,
+    width=0.95,
+    medianlinewidth=3,
+    color=green,
+    label="Universidade",
+)
+elem_1 = PolyElement(; color=blue)
+elem_2 = PolyElement(; color=orange)
+elem_3 = PolyElement(; color=green)
+categ_ies = [elem_1, elem_2, elem_3]
+categ_ies_label = ["Faculdade", "Centro Universitário", "Universidade"]
+elem_5 = MarkerElement(color=:black, marker='L', markersize=20)
+elem_6 = MarkerElement(color=:black, marker='R', markersize=20)
+tipo_ies = [elem_5, elem_6]
+tipo_ies_label = ["Pública", "Privada"]
+axislegend(
+    ax,
+    [categ_ies, tipo_ies],
+    [categ_ies_label, tipo_ies_label],
+    ["Categoria de IES", "Tipo de IES"];
+    position=:rt,
+    orientation=:horizontal
+)
 
-save(joinpath(pwd(), "figures", "violin_enade.png"), fg_violin_nt; px_per_unit=3)
+save(joinpath(pwd(), "figures", "violin_enade.png"), f)
 
-# Barplot Expectation TPACK com Tipo de IES
-df_tpack_tipo = combine(groupby(df, :CO_CATEGAD_PRIVADA), tpack .=> mean ∘ skipmissing .=> tpack)
-transform!(df_tpack_tipo, :CO_CATEGAD_PRIVADA => ByRow(x -> ifelse(x == 1, "Privada", "Pública")); renamecols=false)
-df_tpack_tipo = permutedims(df_tpack_tipo, 1, "Perguntas QE")
-df_tpack_tipo = stack(df_tpack_tipo, 2:3)
-expectation_tpack_tipo = data(df_tpack_tipo) *
-    visual(BarPlot) *
-    mapping(
-        "Perguntas QE",
-        :value => "";
-        color=:variable => "Tipo de IES",
-        dodge=:variable
-    )
-
-
-fg_expectation_tpack_tipo = draw(expectation_tpack_tipo;
-    legend=(; position=:bottom, titleposition=:left, framevisible=true, padding=5),
-    axis=(; xticklabelrotation=π/8))
-
-save(joinpath(pwd(), "figures", "barplot_tpack_tipo.png"), fg_expectation_tpack_tipo; px_per_unit=3)
-
-# Barplot Expectation TPACK com Categoria de IES
-df_tpack_categ = combine(groupby(df, :CO_ORGACAD_NUM), tpack .=> mean ∘ skipmissing .=> tpack)
-transform!(df_tpack_categ, :CO_ORGACAD_NUM => ByRow(string); renamecols=false)
-transform!(df_tpack_categ, :CO_ORGACAD_NUM => x -> replace(x, "1" => "Faculdade", "2" => "Centro Universitário", "3" => "Universidade"); renamecols=false)
-df_tpack_categ = permutedims(df_tpack_categ, 1, "Perguntas QE")
-df_tpack_categ = stack(df_tpack_categ, 2:4)
-expectation_tpack_categ = data(df_tpack_categ) *
-    visual(BarPlot) *
-    mapping(
-        "Perguntas QE",
-        :value => "";
-        color=:variable => "Categoria de IES",
-        dodge=:variable
-    )
-
-
-fg_expectation_tpack_categ = draw(expectation_tpack_categ;
-    legend=(; position=:bottom, titleposition=:left, framevisible=true, padding=5),
-    axis=(; xticklabelrotation=π/8))
-
-save(joinpath(pwd(), "figures", "barplot_tpack_categ.png"), fg_expectation_tpack_categ; px_per_unit=3)
