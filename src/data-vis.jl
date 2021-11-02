@@ -186,6 +186,7 @@ fg_plt_tpk = draw(
         ylabel="Nota Geral",
     ),
 )
+
 save(joinpath(pwd(), "figures", "scatter_tpack_tpk.png"), fg_plt_tpk)
 
 # TPACK PCK
@@ -199,18 +200,25 @@ fg_plt_pck = draw(
         ylabel="Nota Geral",
     ),
 )
+
 save(joinpath(pwd(), "figures", "scatter_tpack_pck.png"), fg_plt_pck)
 
 # TPACK PC
 pc_vars = [:QE_I28, :QE_I39, :QE_I49, :QE_I57]
 plt_pc = base_layers * mapping(pc_vars, :NT_GER; col=dims(1))
 fg_plt_pc = draw(plt_pc; figure=base_fig, axis=(; xticks=1:7, ylabel="Nota Geral"))
-supertitle = Label(fg_plt_pc.figure[0, :], "Notas do ENADE versus Perguntas QE de TPACK - PC", textsize = 30)
+supertitle = Label(
+    fg_plt_pc.figure[0, :], "Notas do ENADE versus Perguntas QE de TPACK - PC"; textsize=30
+)
+
 save(joinpath(pwd(), "figures", "scatter_tpack_pc.png"), fg_plt_pc)
 
 # TPACK PK
 pk_vars = [:QE_I40, :QE_I29, :QE_I30, :QE_I32, :QE_I36, :QE_I37, :QE_I56, :QE_I38]
 plt_pk = base_layers * mapping(pk_vars, :NT_GER; col=dims(1))
 fg_plt_pk = draw(plt_pk; figure=base_fig, axis=(; xticks=1:7, ylabel="Nota Geral"))
-supertitle = Label(fg_plt_pk.figure[0, :], "Notas do ENADE versus Perguntas QE de TPACK - PK", textsize = 30)
+supertitle = Label(
+    fg_plt_pk.figure[0, :], "Notas do ENADE versus Perguntas QE de TPACK - PK"; textsize=30
+)
+
 save(joinpath(pwd(), "figures", "scatter_tpack_pk.png"), fg_plt_pk)
