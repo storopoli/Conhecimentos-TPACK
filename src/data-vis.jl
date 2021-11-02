@@ -1,3 +1,4 @@
+using AlgebraOfGraphics
 using Arrow
 using CategoricalArrays
 using DataFrames
@@ -155,8 +156,8 @@ elem_2 = PolyElement(; color=orange)
 elem_3 = PolyElement(; color=green)
 categ_ies = [elem_1, elem_2, elem_3]
 categ_ies_label = ["Faculdade", "Centro Universitário", "Universidade"]
-elem_5 = MarkerElement(color=:black, marker='L', markersize=20)
-elem_6 = MarkerElement(color=:black, marker='R', markersize=20)
+elem_5 = MarkerElement(; color=:black, marker='L', markersize=20)
+elem_6 = MarkerElement(; color=:black, marker='R', markersize=20)
 tipo_ies = [elem_5, elem_6]
 tipo_ies_label = ["Pública", "Privada"]
 axislegend(
@@ -165,8 +166,51 @@ axislegend(
     [categ_ies_label, tipo_ies_label],
     ["Categoria de IES", "Tipo de IES"];
     position=:rt,
-    orientation=:horizontal
+    orientation=:horizontal,
 )
 
 save(joinpath(pwd(), "figures", "violin_enade.png"), f)
 
+# AoG NT_GERAL vs TPACK
+base_layers = data(df) * (linear() + visual(Scatter))
+base_fig = (; resolution=(1600, 1200))
+
+# TPACK TPK
+plt_tpk = base_layers * mapping(:QE_I58, :NT_GER)
+fg_plt_tpk = draw(
+    plt_tpk;
+    figure=base_fig,
+    axis=(;
+        xticks=1:7,
+        title="Notas do ENADE versus Perguntas QE de TPACK - TPK",
+        ylabel="Nota Geral",
+    ),
+)
+save(joinpath(pwd(), "figures", "scatter_tpack_tpk.png"), fg_plt_tpk)
+
+# TPACK PCK
+plt_pck = base_layers * mapping(:QE_I38, :NT_GER)
+fg_plt_pck = draw(
+    plt_pck;
+    figure=base_fig,
+    axis=(;
+        xticks=1:7,
+        title="Notas do ENADE versus Perguntas QE de TPACK - PCK",
+        ylabel="Nota Geral",
+    ),
+)
+save(joinpath(pwd(), "figures", "scatter_tpack_pck.png"), fg_plt_pck)
+
+# TPACK PC
+pc_vars = [:QE_I28, :QE_I39, :QE_I49, :QE_I57]
+plt_pc = base_layers * mapping(pc_vars, :NT_GER; col=dims(1))
+fg_plt_pc = draw(plt_pc; figure=base_fig, axis=(; xticks=1:7, ylabel="Nota Geral"))
+supertitle = Label(fg_plt_pc.figure[0, :], "Notas do ENADE versus Perguntas QE de TPACK - PC", textsize = 30)
+save(joinpath(pwd(), "figures", "scatter_tpack_pc.png"), fg_plt_pc)
+
+# TPACK PK
+pk_vars = [:QE_I40, :QE_I29, :QE_I30, :QE_I32, :QE_I36, :QE_I37, :QE_I56, :QE_I38]
+plt_pk = base_layers * mapping(pk_vars, :NT_GER; col=dims(1))
+fg_plt_pk = draw(plt_pk; figure=base_fig, axis=(; xticks=1:7, ylabel="Nota Geral"))
+supertitle = Label(fg_plt_pk.figure[0, :], "Notas do ENADE versus Perguntas QE de TPACK - PK", textsize = 30)
+save(joinpath(pwd(), "figures", "scatter_tpack_pk.png"), fg_plt_pk)

@@ -26,7 +26,7 @@ Valores:
 	- `QE_I58`: Os professores utilizarão tecnologias da informação e comunicação (TICs) como estratégia de ensino (projetor, multimídia, laboratórios de informática, ambiente virtual de aprendizagem).
 - `PC` (Pedagogia + Conteúdo):
     - `QE_I28`: Os conteúdos abordados nas disciplinas do curso favoreceram sua atuação em estágios ou em atividades de iniciação profissional.
-    - `QE_I29`: As referências bibliográficas indicadas pelos professores nos planos de ensino contribuíram para seus estudos e aprendizagens.
+    - `QE_I39`: As referências bibliográficas indicadas pelos professores nos planos de ensino contribuíram para seus estudos e aprendizagens.
     - `QE_I49`: O curso propiciou acesso a conhecimentos atualizados e/ou contemporâneos em sua área de formação.
 	- `QE_I57`: Os professores demonstraram domínio dos conteúdos abordados nas disciplinas.
 - `PK` (Pedagogia + Conhecimento):

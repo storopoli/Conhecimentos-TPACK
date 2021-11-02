@@ -52,8 +52,8 @@ dropmissing!(df, :NT_GER)
 # Missings das Outras Variáveis
 # 318,627 alunos
 dropmissing!(df, [
-                  :QE_I58, :QE_I28, :QE_I29, :QE_I49, :QE_I57, :QE_I40, :QE_I30,
-                  :QE_I32, :QE_I36, :QE_I37, :QE_I56, :QE_I38,
+                  :QE_I58, :QE_I28, :QE_I39, :QE_I49, :QE_I57,
+                  :QE_I40, :QE_I29, :QE_I30, :QE_I32, :QE_I36, :QE_I37, :QE_I56, :QE_I38,
                   :QE_I61, :QE_I62, :QE_I63, :QE_I64, :QE_I65,
                   :CO_CATEGAD, :CO_ORGACAD,
                   :CO_GRUPO, :CO_REGIAO_CURSO, :CO_MODALIDADE,
