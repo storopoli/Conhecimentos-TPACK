@@ -2,6 +2,8 @@
 
 A escala [TPACK](https://www.sciencedirect.com/science/article/pii/S0360131511002569).
 
+SEM com Variáveis Latentes sendo os `T`, `P` e `K` do TPACK e as perguntas `QE` sendo items das VLs, sendo que um item pode estar alocado em mais de uma VL.
+
 ## Variáveis do ENADE
 
 ### Desempenho do Aluno
@@ -22,7 +24,7 @@ Valores:
 - `7` - Não se aplica
 - `8` - Não sei responder
 
-- `TPK` (Tecnologia + Pedagogia + Conhecimento):
+- `TK` (Tecnologia + Conhecimento):
 	- `QE_I58`: Os professores utilizarão tecnologias da informação e comunicação (TICs) como estratégia de ensino (projetor, multimídia, laboratórios de informática, ambiente virtual de aprendizagem).
 - `PC` (Pedagogia + Conteúdo):
     - `QE_I28`: Os conteúdos abordados nas disciplinas do curso favoreceram sua atuação em estágios ou em atividades de iniciação profissional.

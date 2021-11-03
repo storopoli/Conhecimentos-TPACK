@@ -191,7 +191,7 @@ fg_plt_tpk = draw(
 )
 supertitle = Label(
     fg_plt_tpk.figure[0, :],
-    "Notas do ENADE versus Perguntas QE de TPACK - TPK";
+    "Notas do ENADE versus Perguntas QE de TPACK - TK";
     textsize=30,
     tellwidth=false,
 )
