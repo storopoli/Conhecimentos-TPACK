@@ -39,7 +39,7 @@ Valores:
     - `QE_I36`: O curso contribuiu para o desenvolvimento da sua capacidade de aprender e atualizar-se permanentemente.
     - `QE_I37`: As relações professor-aluno ao longo do curso estimularam você a estudar e aprender.
     - `QE_I56`: Os professores apresentaram disponibilidade para atender os estudantes fora do horário das aulas.
-- `PCK` (Pedagogia + Conteúdo + Conhecimento):
+- `PCK` (Pedagogia + Conteúdo + Conhecimento) (**NÃO SELECIONADO**):
     - `QE_I38`: Os planos de ensino apresentados pelos professores contribuíram para o desenvolvimento das atividades acadêmicas e para seus estudos.
 
 - Contexto:
