@@ -5,7 +5,7 @@ using DataFrames
 using GLMakie
 using Statistics
 
-df = Arrow.Table(joinpath(pwd(), "data", "data.arrow")) |> DataFrame
+df = DataFrame(Arrow.Table(joinpath(pwd(), "data", "data.arrow")))
 
 # Theme
 my_theme = Theme(; fontsize=22, font="CMU Serif", Axis=(; titlesize=30))

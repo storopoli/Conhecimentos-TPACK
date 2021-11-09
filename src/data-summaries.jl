@@ -3,9 +3,9 @@ using CSV
 using DataFrames
 using Statistics
 
-df = Arrow.Table(joinpath(pwd(), "data", "data.arrow")) |> DataFrame
+df = DataFrame(Arrow.Table(joinpath(pwd(), "data", "data.arrow")))
 
 # Geral
-describe(df, :mean, :median, :q25, :q75, :std, :min, :max) |>
-CSV.write(joinpath(pwd(), "tables", "summary.csv"))
-
+CSV.write(joinpath(pwd(), "tables", "summary.csv"))(describe(
+    df, :mean, :median, :q25, :q75, :std, :min, :max
+))

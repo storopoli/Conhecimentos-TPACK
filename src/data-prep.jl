@@ -8,14 +8,11 @@ using Statistics
 #df2015 = Arrow.Table(joinpath(pwd(),  "data", "ENADE", "MICRODADOS_ENADE_2015.arrow")) |> DataFrame
 #df2016 = Arrow.Table(joinpath(pwd(),  "data", "ENADE", "MICRODADOS_ENADE_2016.arrow")) |> DataFrame
 df2017 =
-    Arrow.Table(joinpath(pwd(), "data", "ENADE", "MICRODADOS_ENADE_2017.arrow")) |>
-    DataFrame
+    DataFrame(Arrow.Table(joinpath(pwd(), "data", "ENADE", "MICRODADOS_ENADE_2017.arrow")))
 df2018 =
-    Arrow.Table(joinpath(pwd(), "data", "ENADE", "MICRODADOS_ENADE_2018.arrow")) |>
-    DataFrame
+    DataFrame(Arrow.Table(joinpath(pwd(), "data", "ENADE", "MICRODADOS_ENADE_2018.arrow")))
 df2019 =
-    Arrow.Table(joinpath(pwd(), "data", "ENADE", "MICRODADOS_ENADE_2019.arrow")) |>
-    DataFrame
+    DataFrame(Arrow.Table(joinpath(pwd(), "data", "ENADE", "MICRODADOS_ENADE_2019.arrow")))
 
 # Variables of Interest
 vars = [
@@ -125,9 +122,9 @@ dropmissing!(
 # IES
 #ies2015 = Arrow.Table(joinpath(pwd(), "data", "Censo", "DM_IES_2015.arrow")) |> DataFrame
 #ies2016 = Arrow.Table(joinpath(pwd(), "data", "Censo", "DM_IES_2016.arrow")) |> DataFrame
-ies2017 = Arrow.Table(joinpath(pwd(), "data", "Censo", "DM_IES_2017.arrow")) |> DataFrame
-ies2018 = Arrow.Table(joinpath(pwd(), "data", "Censo", "DM_IES_2018.arrow")) |> DataFrame
-ies2019 = Arrow.Table(joinpath(pwd(), "data", "Censo", "DM_IES_2019.arrow")) |> DataFrame
+ies2017 = DataFrame(Arrow.Table(joinpath(pwd(), "data", "Censo", "DM_IES_2017.arrow")))
+ies2018 = DataFrame(Arrow.Table(joinpath(pwd(), "data", "Censo", "DM_IES_2018.arrow")))
+ies2019 = DataFrame(Arrow.Table(joinpath(pwd(), "data", "Censo", "DM_IES_2019.arrow")))
 
 #rename!(ies2015, :VL_DES_INVESTIMENTO => :VL_DESPESA_INVESTIMENTO)
 #rename!(ies2016, :VL_DES_INVESTIMENTO => :VL_DESPESA_INVESTIMENTO)
@@ -145,11 +142,11 @@ transform!(ies, :VL_DESPESA_INVESTIMENTO => ByRow(x -> parse(Float64, x)); renam
 #docente2015 = Arrow.Table(joinpath(pwd(), "data", "Censo", "DM_DOCENTE_2015.arrow")) |> DataFrame
 #docente2016 = Arrow.Table(joinpath(pwd(), "data", "Censo", "DM_DOCENTE_2016.arrow")) |> DataFrame
 docente2017 =
-    Arrow.Table(joinpath(pwd(), "data", "Censo", "DM_DOCENTE_2017.arrow")) |> DataFrame
+    DataFrame(Arrow.Table(joinpath(pwd(), "data", "Censo", "DM_DOCENTE_2017.arrow")))
 docente2018 =
-    Arrow.Table(joinpath(pwd(), "data", "Censo", "DM_DOCENTE_2018.arrow")) |> DataFrame
+    DataFrame(Arrow.Table(joinpath(pwd(), "data", "Censo", "DM_DOCENTE_2018.arrow")))
 docente2019 =
-    Arrow.Table(joinpath(pwd(), "data", "Censo", "DM_DOCENTE_2019.arrow")) |> DataFrame
+    DataFrame(Arrow.Table(joinpath(pwd(), "data", "Censo", "DM_DOCENTE_2019.arrow")))
 
 #docente2015[:, :NU_ANO_CENSO] .= 2015
 #docente2016[:, :NU_ANO_CENSO] .= 2016
@@ -282,4 +279,4 @@ select!(df, Between(1, :CO_IES), :CO_CATEGAD_PRIVADA, :CO_ORGACAD_NUM, :)
 # 295,261 para 288,530
 dropmissing!(df)
 
-df |> Arrow.write(joinpath(pwd(), "data", "data.arrow"); compress=:lz4)
+Arrow.write(joinpath(pwd(), "data", "data.arrow"); compress=:lz4)(df)
