@@ -6,15 +6,16 @@ SEM com Variáveis Latentes sendo os `T`, `P` e `K` do TPACK e as perguntas `QE`
 
 ## Variáveis do ENADE
 
-### Desempenho do Aluno
+### ENADE - Desempenho do Aluno
 
 - `NT_GER`: Nota Geral
 - `NT_FG`: Nota Formação Geral
 - `NT_CE`: Nota Componente Específico
 
-### TPACK
+### ENADE - TPACK
 
 Valores:
+
 - `1` - Discordo totalmente
 - `2` - Discordo
 - `3` - Discordo parcialmente
@@ -25,178 +26,180 @@ Valores:
 - `8` - Não sei responder
 
 - `TK` (Tecnologia + Conhecimento):
-	- `QE_I58`: Os professores utilizarão tecnologias da informação e comunicação (TICs) como estratégia de ensino (projetor, multimídia, laboratórios de informática, ambiente virtual de aprendizagem).
+  - `QE_I58`: Os professores utilizarão tecnologias da informação e comunicação (TICs) como estratégia de ensino (projetor, multimídia, laboratórios de informática, ambiente virtual de aprendizagem).
 - `PC` (Pedagogia + Conteúdo):
-    - `QE_I28`: Os conteúdos abordados nas disciplinas do curso favoreceram sua atuação em estágios ou em atividades de iniciação profissional.
-    - `QE_I39`: As referências bibliográficas indicadas pelos professores nos planos de ensino contribuíram para seus estudos e aprendizagens.
-    - `QE_I49`: O curso propiciou acesso a conhecimentos atualizados e/ou contemporâneos em sua área de formação.
-	- `QE_I57`: Os professores demonstraram domínio dos conteúdos abordados nas disciplinas.
+  - `QE_I28`: Os conteúdos abordados nas disciplinas do curso favoreceram sua atuação em estágios ou em atividades de iniciação profissional.
+  - `QE_I39`: As referências bibliográficas indicadas pelos professores nos planos de ensino contribuíram para seus estudos e aprendizagens.
+  - `QE_I49`: O curso propiciou acesso a conhecimentos atualizados e/ou contemporâneos em sua área de formação.
+  - `QE_I57`: Os professores demonstraram domínio dos conteúdos abordados nas disciplinas.
 - `PK` (Pedagogia + Conhecimento):
-    - `QE_I40`: Foram oferecidas oportunidades para os estudantes superarem problemas e dificuldades relacionados ao processo de formação.
-    - `QE_I29`: As metodologias de ensino utilizadas no curso desafiaram você a aprofundar conhecimentos e desenvolver competências reflexivas e críticas.
-    - `QE_I30`: O curso propiciou experiências de aprendizagem inovadoras.
-    - `QE_I32`: No curso você teve oportunidade de aprender a trabalhar em equipe.
-    - `QE_I36`: O curso contribuiu para o desenvolvimento da sua capacidade de aprender e atualizar-se permanentemente.
-    - `QE_I37`: As relações professor-aluno ao longo do curso estimularam você a estudar e aprender.
-    - `QE_I56`: Os professores apresentaram disponibilidade para atender os estudantes fora do horário das aulas.
+  - `QE_I40`: Foram oferecidas oportunidades para os estudantes superarem problemas e dificuldades relacionados ao processo de formação.
+  - `QE_I29`: As metodologias de ensino utilizadas no curso desafiaram você a aprofundar conhecimentos e desenvolver competências reflexivas e críticas.
+  - `QE_I30`: O curso propiciou experiências de aprendizagem inovadoras.
+  - `QE_I32`: No curso você teve oportunidade de aprender a trabalhar em equipe.
+  - `QE_I36`: O curso contribuiu para o desenvolvimento da sua capacidade de aprender e atualizar-se permanentemente.
+  - `QE_I37`: As relações professor-aluno ao longo do curso estimularam você a estudar e aprender.
+  - `QE_I56`: Os professores apresentaram disponibilidade para atender os estudantes fora do horário das aulas.
 - `PCK` (Pedagogia + Conteúdo + Conhecimento) (**NÃO SELECIONADO**):
-    - `QE_I38`: Os planos de ensino apresentados pelos professores contribuíram para o desenvolvimento das atividades acadêmicas e para seus estudos.
+  - `QE_I38`: Os planos de ensino apresentados pelos professores contribuíram para o desenvolvimento das atividades acadêmicas e para seus estudos.
 
 - Contexto:
-    - `QE_I61`: As condições de infraestrutura das salas de aula foram adequadas.
-    - `QE_I62`: Os equipamentos e materiais disponíveis para as aulas práticas foram adequados para a quantidade de estudantes.
-    - `QE_I63`: Os ambientes e equipamentos destinados às aulas práticas foram adequados ao curso.
-    - `QE_I64`: A biblioteca dispôs das referências bibliográficas que os estudantes necessitaram.
-    - `QE_I65`: A instituição contou com biblioteca virtual ou conferiu acesso a obras disponíveis em acervos virtuais.
+  - `QE_I61`: As condições de infraestrutura das salas de aula foram adequadas.
+  - `QE_I62`: Os equipamentos e materiais disponíveis para as aulas práticas foram adequados para a quantidade de estudantes.
+  - `QE_I63`: Os ambientes e equipamentos destinados às aulas práticas foram adequados ao curso.
+  - `QE_I64`: A biblioteca dispôs das referências bibliográficas que os estudantes necessitaram.
+  - `QE_I65`: A instituição contou com biblioteca virtual ou conferiu acesso a obras disponíveis em acervos virtuais.
 
-### IES
+### ENADE - IES
 
 - Categoria Administrativa - `CO_CATEGAD`:
-	- `10005`, `10008`, `118`, `120`, `121`, `10006` e `10009`: IES privada
-	- `93`, `17634`, `115`, `116`, `10001`, `10002` e `10003`: IES pública
+  - `10005`, `10008`, `118`, `120`, `121`, `10006` e `10009`: IES privada
+  - `93`, `17634`, `115`, `116`, `10001`, `10002` e `10003`: IES pública
 - Organização Acadêmica - `CO_ORGACAD`:
-	- `10022`: Faculdade `1`
-	- `10020`: Centro Universitário `2`
-	- `10028`: Universidade `3`
-	- `10019` e `10026`: Centros Federais e Institutos Federais (removidos)
+  - `10022`: Faculdade `1`
+  - `10020`: Centro Universitário `2`
+  - `10028`: Universidade `3`
+  - `10019` e `10026`: Centros Federais e Institutos Federais (removidos)
 
-### Curso
+### ENADE - Curso
 
 - Área do Curso no ENADE - `CO_GRUPO`:
-	- `1`: ADMINISTRAÇÃO: **SELECIONADO**
-	- `2`: DIREITO: **SELECIONADO**
-	- `12`: MEDICINA: **SELECIONADO**
-	- `13`: CIÊNCIAS ECONÔMICAS
-	- `18`: PSICOLOGIA
-	- `22`: CIÊNCIAS CONTÁBEIS
-	- `26`: DESIGN
-	- `29`: TURISMO
-	- `38`: SERVIÇO SOCIAL
-	- `67`: SECRETARIADO EXECUTIVO
-	- `81`: RELAÇÕES INTERNACIONAIS
-	- `83`: TECNOLOGIA EM DESIGN DE MODA
-	- `84`: TECNOLOGIA EM MARKETING
-	- `85`: TECNOLOGIA EM PROCESSOS GERENCIAIS
-	- `86`: TECNOLOGIA EM GESTÃO DE RECURSOS HUMANOS
-	- `87`: TECNOLOGIA EM GESTÃO FINANCEIRA
-	- `88`: TECNOLOGIA EM GASTRONOMIA
-	- `93`: TECNOLOGIA EM GESTÃO COMERCIAL
-	- `94`: TECNOLOGIA EM LOGÍSTICA
-	- `100`: ADMINISTRAÇÃO PÚBLICA
-	- `101`: TEOLOGIA
-	- `102`: TECNOLOGIA EM COMÉRCIO EXTERIOR
-	- `103`: TECNOLOGIA EM DESIGN DE INTERIORES
-	- `104`: TECNOLOGIA EM DESIGN GRÁFICO
-	- `105`: TECNOLOGIA EM GESTÃO DA QUALIDADE
-	- `106`: TECNOLOGIA EM GESTÃO PÚBLICA
-	- `803`: COMUNICAÇÃO SOCIAL: JORNALISMO
-	- `804`: COMUNICAÇÃO SOCIAL: PUBLICIDADE E PROPAGANDA
-	- `2001`: PEDAGOGIA: **SELECIONADO**
-	- `4004`: CIÊNCIAS DA COMPUTAÇÃO: **SELECIONADO**
+  - `1`: ADMINISTRAÇÃO: **SELECIONADO**
+  - `2`: DIREITO: **SELECIONADO**
+  - `12`: MEDICINA: **SELECIONADO**
+  - `13`: CIÊNCIAS ECONÔMICAS
+  - `18`: PSICOLOGIA
+  - `22`: CIÊNCIAS CONTÁBEIS
+  - `26`: DESIGN
+  - `29`: TURISMO
+  - `38`: SERVIÇO SOCIAL
+  - `67`: SECRETARIADO EXECUTIVO
+  - `81`: RELAÇÕES INTERNACIONAIS
+  - `83`: TECNOLOGIA EM DESIGN DE MODA
+  - `84`: TECNOLOGIA EM MARKETING
+  - `85`: TECNOLOGIA EM PROCESSOS GERENCIAIS
+  - `86`: TECNOLOGIA EM GESTÃO DE RECURSOS HUMANOS
+  - `87`: TECNOLOGIA EM GESTÃO FINANCEIRA
+  - `88`: TECNOLOGIA EM GASTRONOMIA
+  - `93`: TECNOLOGIA EM GESTÃO COMERCIAL
+  - `94`: TECNOLOGIA EM LOGÍSTICA
+  - `100`: ADMINISTRAÇÃO PÚBLICA
+  - `101`: TEOLOGIA
+  - `102`: TECNOLOGIA EM COMÉRCIO EXTERIOR
+  - `103`: TECNOLOGIA EM DESIGN DE INTERIORES
+  - `104`: TECNOLOGIA EM DESIGN GRÁFICO
+  - `105`: TECNOLOGIA EM GESTÃO DA QUALIDADE
+  - `106`: TECNOLOGIA EM GESTÃO PÚBLICA
+  - `803`: COMUNICAÇÃO SOCIAL: JORNALISMO
+  - `804`: COMUNICAÇÃO SOCIAL: PUBLICIDADE E PROPAGANDA
+  - `2001`: PEDAGOGIA: **SELECIONADO**
+  - `4004`: CIÊNCIAS DA COMPUTAÇÃO: **SELECIONADO**
 
 - Região do Curso - `CO_REGIAO_CURSO`:
-	- `1`: Região Norte (NO)
-	- `2`: Região Nordeste (NE)
-	- `3`: Região Sudeste (SE)
-	- `4`: Região Sul (SUL)
-	- `5`: Região Centro-Oeste (CO)
+  - `1`: Região Norte (NO)
+  - `2`: Região Nordeste (NE)
+  - `3`: Região Sudeste (SE)
+  - `4`: Região Sul (SUL)
+  - `5`: Região Centro-Oeste (CO)
 
 - Modalidade de Ensino - `CO_MODALIDADE`:
-	- `1`: Educação Presencial - **SELECIONADO**
-	- `2`: Educação a Distância
+  - `1`: Educação Presencial - **SELECIONADO**
+  - `2`: Educação a Distância
 
-### Aluno
+### ENADE - Aluno
 
 - Idade - `NU_IDADE`
 - Sexo -  `TP_SEXO`:
-	- `M`: Masculino
-	- `F`: Feminino
+  - `M`: Masculino
+  - `F`: Feminino
+
 - Estado Civil - `QE_I01` (Solteiro e Não-Solteiro):
-	- `A`: Solteiro(a)
-	- `B`: Casado(a)
-	- `C`: Separado(a) judicialmente/divorciado(a)
-	- `D`: Viúvo(a)
-	- `E`: Outro
+  - `A`: Solteiro(a)
+  - `B`: Casado(a)
+  - `C`: Separado(a) judicialmente/divorciado(a)
+  - `D`: Viúvo(a)
+  - `E`: Outro
+
 - Cor/Raça - `QE_I02` (Branca e Não-Branca):
-	- `A`: Branca
-	- `B`: Preta
-	- `C`: Amarela
-	- `D`: Parda
-	- `E`: Indígena
-	- `F`: Não quero declarar
+  - `A`: Branca
+  - `B`: Preta
+  - `C`: Amarela
+  - `D`: Parda
+  - `E`: Indígena
+  - `F`: Não quero declarar
 - Escolarização da Mãe - `QE_I05` (Superior ou Não):
-	- `A`: Nenhuma
-	- `B`: Ensino Fundamental: 1º ao 5º ano (1ª a 4ª série)
-	- `C`: Ensino Fundamental: 6º ao 9º ano (5ª a 8ª série)
-	- `D`: Ensino médio
-	- `E`: Ensino Superior - Graduação
-	- `F`: Pós-graduação
+  - `A`: Nenhuma
+  - `B`: Ensino Fundamental: 1º ao 5º ano (1ª a 4ª série)
+  - `C`: Ensino Fundamental: 6º ao 9º ano (5ª a 8ª série)
+  - `D`: Ensino médio
+  - `E`: Ensino Superior - Graduação
+  - `F`: Pós-graduação
 - Ensino Médio - `QE_I17` (Pública ou Privada):
-	- `A`: Todo em escola pública
-	- `B`: Todo em escola privada (particular)
-	- `C`: Todo no exterior
-	- `D`: A maior parte em escola pública
-	- `E`: A maior parte em escola privada (particular)
-	- `F`: Parte no Brasil e parte no exterior
+  - `A`: Todo em escola pública
+  - `B`: Todo em escola privada (particular)
+  - `C`: Todo no exterior
+  - `D`: A maior parte em escola pública
+  - `E`: A maior parte em escola privada (particular)
+  - `F`: Parte no Brasil e parte no exterior
 - Renda Total Familiar - `QE_I08`:
-	- `A`: Até 1,5 salário mínimo (até R$ 1.431,00)
-	- `B`: De 1,5 a 3 salários mínimos (R$ 1.431,01 a R$ 2.862,00)
-	- `C`: De 3 a 4,5 salários mínimos (R$ 2.862,01 a R$ 4.293,00)
-	- `D`: De 4,5 a 6 salários mínimos (R$ 4.293,01 a R$ 5.724,00)
-	- `E`: De 6 a 10 salários mínimos (R$ 5.724,01 a R$ 9.540,00)
-	- `F`: De 10 a 30 salários mínimos (R$ 9.540,01 a R$ 28.620,00)
-	- `G`: Acima de 30 salários mínimos (mais de R$ 28.620,00)
+  - `A`: Até 1,5 salário mínimo (até R$ 1.431,00)
+  - `B`: De 1,5 a 3 salários mínimos (R$ 1.431,01 a R$ 2.862,00)
+  - `C`: De 3 a 4,5 salários mínimos (R$ 2.862,01 a R$ 4.293,00)
+  - `D`: De 4,5 a 6 salários mínimos (R$ 4.293,01 a R$ 5.724,00)
+  - `E`: De 6 a 10 salários mínimos (R$ 5.724,01 a R$ 9.540,00)
+  - `F`: De 10 a 30 salários mínimos (R$ 9.540,01 a R$ 28.620,00)
+  - `G`: Acima de 30 salários mínimos (mais de R$ 28.620,00)
 
 ## Variáveis do Censo do Ensino Superior
 
-### IES
+### Censo - IES
 
 - Categoria Administrativa - `TP_CATEGORIA_ADMINISTRATIVA`:
-	- `1`, `2`, `3` e `7`: Pública
-	- `4`, `5`, `6`, `8` e `9`: Privada
+  - `1`, `2`, `3` e `7`: Pública
+  - `4`, `5`, `6`, `8` e `9`: Privada
 - Organização Acadêmica - `TP_ORGANIZACAO_ACADEMICA`:
-	- `1`: Universidade
-	- `2`: Centro Universitário
-	- `3`: Faculdade
-	- `4` e `5`: Centros Federais e Institutos Federais (removidos)
+  - `1`: Universidade
+  - `2`: Centro Universitário
+  - `3`: Faculdade
+  - `4` e `5`: Centros Federais e Institutos Federais (removidos)
 - Biblioteca possui Internet - `IN_SERVICO_INTERNET`:
-	- `0`: Não
-	- `1`: Sim
+  - `0`: Não
+  - `1`: Sim
 - Despesas de Investimentos realizadas pela IES ou Mantenedora - `VL_DESPESA_INVESTIMENTO`
 
-### CURSO
+### Censo - Curso
 
 - Grau Acadêmica - `TP_GRAU_ACADEMICO`:
-	- `1`: Bacharelado
-	- `2`: Licenciatura
-	- `3`: Tecnológico
-	- `4`: Bacharelado e Licenciatura (apenas 2009)
+  - `1`: Bacharelado
+  - `2`: Licenciatura
+  - `3`: Tecnológico
+  - `4`: Bacharelado e Licenciatura (apenas 2009)
 - Modalidade de Ensino - `TP_MODALIDADE_ENSINO`:
-	- `1`: Educação Presencial - **SELECIONADO**
-	- `2`: Educação a Distância
+  - `1`: Educação Presencial - **SELECIONADO**
+  - `2`: Educação a Distância
 
-### Docente
+### Censo - Docente
 
 - Sexo - `TP_SEXO`:
-	- `1`: Feminino
-	- `2`: Masculino
+  - `1`: Feminino
+  - `2`: Masculino
 - Escolaridade - `TP_ESCOLARIDADE`:
-	- `1`: Sem Graduação
-	- `2`: Graduação
-	- `3`: Especialização
-	- `4`: Mestrado
-	- `5`: Doutorado
+  - `1`: Sem Graduação
+  - `2`: Graduação
+  - `3`: Especialização
+  - `4`: Mestrado
+  - `5`: Doutorado
 - Regime de Trabalho - `TP_REGIME_TRABALHO`:
-	- `1`: Tempo Integral com Dedicação Exclusiva
-	- `2`: Tempo Integral sem Dedicação Exclusiva
-	- `3`: Tempo Parcial
-	- `4`: Horista
+  - `1`: Tempo Integral com Dedicação Exclusiva
+  - `2`: Tempo Integral sem Dedicação Exclusiva
+  - `3`: Tempo Parcial
+  - `4`: Horista
 - Idade - `NU_IDADE`
 - Cor/Raça - `TP_COR_RACA`:
-	- `0`: Não quero declarar
-	- `1`: Branca
-	- `2`: Preta
-	- `3`: Parda
-	- `4`: Amarela
-	- `5`: Indígena
-	- `9`: Não disponível
+  - `0`: Não quero declarar
+  - `1`: Branca
+  - `2`: Preta
+  - `3`: Parda
+  - `4`: Amarela
+  - `5`: Indígena
+  - `9`: Não disponível
