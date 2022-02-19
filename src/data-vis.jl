@@ -176,8 +176,8 @@ base_layers = data(df) * (linear())
 base_fig = (; resolution=(1600, 1200))
 base_legend = (; position=:bottom, titleposition=:left, framevisible=true, padding=5)
 
-# TPACK TPK
-plt_tpk =
+# TPACK T
+plt_t =
     base_layers * mapping(
         :QE_I58,
         :NT_GER;
@@ -186,45 +186,23 @@ plt_tpk =
         row=:CO_ORGACAD_NUM =>
             renamer([1 => "Faculdade", 2 => "Centro Universitário", 3 => "Universidade"]),
     )
-fg_plt_tpk = draw(
-    plt_tpk; figure=base_fig, axis=(; xticks=1:7, ylabel="Nota Geral"), legend=base_legend
+fg_plt_t = draw(
+    plt_t; figure=base_fig, axis=(; xticks=1:6, ylabel="Nota Geral"), legend=base_legend
 )
 supertitle = Label(
-    fg_plt_tpk.figure[0, :],
-    "Notas do ENADE versus Perguntas QE de TPACK - TK";
+    fg_plt_t.figure[0, :],
+    "Notas do ENADE versus Perguntas QE de TPACK - T";
     textsize=30,
     tellwidth=false,
 )
 
-save(joinpath(pwd(), "figures", "scatter_tpack_tpk.png"), fg_plt_tpk)
+save(joinpath(pwd(), "figures", "scatter_tpack_t.png"), fg_plt_t)
 
-# TPACK PCK
-plt_pck =
+# TPACK C
+c_vars = [:QE_I28, :QE_I39, :QE_I49, :QE_I57]
+plt_c =
     base_layers * mapping(
-        :QE_I38,
-        :NT_GER;
-        color=:CO_CATEGAD_PRIVADA =>
-            renamer([0 => "Pública", 1 => "Privada"]) => "Tipo de IES",
-        row=:CO_ORGACAD_NUM =>
-            renamer([1 => "Faculdade", 2 => "Centro Universitário", 3 => "Universidade"]),
-    )
-fg_plt_pck = draw(
-    plt_pck; figure=base_fig, axis=(; xticks=1:7, ylabel="Nota Geral"), legend=base_legend
-)
-supertitle = Label(
-    fg_plt_pck.figure[0, :],
-    "Notas do ENADE versus Perguntas QE de TPACK - PCK";
-    textsize=30,
-    tellwidth=false,
-)
-
-save(joinpath(pwd(), "figures", "scatter_tpack_pck.png"), fg_plt_pck)
-
-# TPACK PC
-pc_vars = [:QE_I28, :QE_I39, :QE_I49, :QE_I57]
-plt_pc =
-    base_layers * mapping(
-        pc_vars,
+        c_vars,
         :NT_GER;
         col=dims(1),
         color=:CO_CATEGAD_PRIVADA =>
@@ -232,23 +210,23 @@ plt_pc =
         row=:CO_ORGACAD_NUM =>
             renamer([1 => "Faculdade", 2 => "Centro Universitário", 3 => "Universidade"]),
     )
-fg_plt_pc = draw(
-    plt_pc; figure=base_fig, axis=(; xticks=1:7, ylabel="Nota Geral"), legend=base_legend
+fg_plt_c = draw(
+    plt_c; figure=base_fig, axis=(; xticks=1:6, ylabel="Nota Geral"), legend=base_legend
 )
 supertitle = Label(
-    fg_plt_pc.figure[0, :],
-    "Notas do ENADE versus Perguntas QE de TPACK - PC";
+    fg_plt_c.figure[0, :],
+    "Notas do ENADE versus Perguntas QE de TPACK - C";
     textsize=30,
     tellwidth=false,
 )
 
-save(joinpath(pwd(), "figures", "scatter_tpack_pc.png"), fg_plt_pc)
+save(joinpath(pwd(), "figures", "scatter_tpack_c.png"), fg_plt_c)
 
-# TPACK PK
-pk_vars = [:QE_I40, :QE_I29, :QE_I30, :QE_I32, :QE_I36, :QE_I37, :QE_I56, :QE_I38]
-plt_pk =
+# TPACK P
+p_vars = [:QE_I29, :QE_I30, :QE_I32, :QE_I36, :QE_I40]
+plt_p =
     base_layers * mapping(
-        pk_vars,
+        p_vars,
         :NT_GER;
         col=dims(1),
         color=:CO_CATEGAD_PRIVADA =>
@@ -256,14 +234,14 @@ plt_pk =
         row=:CO_ORGACAD_NUM =>
             renamer([1 => "Faculdade", 2 => "Centro Universitário", 3 => "Universidade"]),
     )
-fg_plt_pk = draw(
-    plt_pk; figure=base_fig, axis=(; xticks=1:7, ylabel="Nota Geral"), legend=base_legend
+fg_plt_p = draw(
+    plt_p; figure=base_fig, axis=(; xticks=1:6, ylabel="Nota Geral"), legend=base_legend
 )
 supertitle = Label(
-    fg_plt_pk.figure[0, :],
-    "Notas do ENADE versus Perguntas QE de TPACK - PK";
+    fg_plt_p.figure[0, :],
+    "Notas do ENADE versus Perguntas QE de TPACK - P";
     textsize=30,
     tellwidth=false,
 )
 
-save(joinpath(pwd(), "figures", "scatter_tpack_pk.png"), fg_plt_pk)
+save(joinpath(pwd(), "figures", "scatter_tpack_p.png"), fg_plt_p)

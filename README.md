@@ -25,30 +25,19 @@ Valores:
 - `7` - Não se aplica
 - `8` - Não sei responder
 
-- `TK` (Tecnologia + Conhecimento):
+- `T` (Tecnologia):
   - `QE_I58`: Os professores utilizarão tecnologias da informação e comunicação (TICs) como estratégia de ensino (projetor, multimídia, laboratórios de informática, ambiente virtual de aprendizagem).
-- `PC` (Pedagogia + Conteúdo):
+- `C` (Conteúdo):
   - `QE_I28`: Os conteúdos abordados nas disciplinas do curso favoreceram sua atuação em estágios ou em atividades de iniciação profissional.
   - `QE_I39`: As referências bibliográficas indicadas pelos professores nos planos de ensino contribuíram para seus estudos e aprendizagens.
   - `QE_I49`: O curso propiciou acesso a conhecimentos atualizados e/ou contemporâneos em sua área de formação.
   - `QE_I57`: Os professores demonstraram domínio dos conteúdos abordados nas disciplinas.
-- `PK` (Pedagogia + Conhecimento):
-  - `QE_I40`: Foram oferecidas oportunidades para os estudantes superarem problemas e dificuldades relacionados ao processo de formação.
+- `P` (Pedagogia):
   - `QE_I29`: As metodologias de ensino utilizadas no curso desafiaram você a aprofundar conhecimentos e desenvolver competências reflexivas e críticas.
   - `QE_I30`: O curso propiciou experiências de aprendizagem inovadoras.
   - `QE_I32`: No curso você teve oportunidade de aprender a trabalhar em equipe.
   - `QE_I36`: O curso contribuiu para o desenvolvimento da sua capacidade de aprender e atualizar-se permanentemente.
-  - `QE_I37`: As relações professor-aluno ao longo do curso estimularam você a estudar e aprender.
-  - `QE_I56`: Os professores apresentaram disponibilidade para atender os estudantes fora do horário das aulas.
-- `PCK` (Pedagogia + Conteúdo + Conhecimento) (**NÃO SELECIONADO**):
-  - `QE_I38`: Os planos de ensino apresentados pelos professores contribuíram para o desenvolvimento das atividades acadêmicas e para seus estudos.
-
-- Contexto:
-  - `QE_I61`: As condições de infraestrutura das salas de aula foram adequadas.
-  - `QE_I62`: Os equipamentos e materiais disponíveis para as aulas práticas foram adequados para a quantidade de estudantes.
-  - `QE_I63`: Os ambientes e equipamentos destinados às aulas práticas foram adequados ao curso.
-  - `QE_I64`: A biblioteca dispôs das referências bibliográficas que os estudantes necessitaram.
-  - `QE_I65`: A instituição contou com biblioteca virtual ou conferiu acesso a obras disponíveis em acervos virtuais.
+  - `QE_I40`: Foram oferecidas oportunidades para os estudantes superarem problemas e dificuldades relacionados ao processo de formação.
 
 ### ENADE - IES
 
@@ -67,6 +56,8 @@ Valores:
   - `1`: ADMINISTRAÇÃO: **SELECIONADO**
   - `2`: DIREITO: **SELECIONADO**
   - `12`: MEDICINA: **SELECIONADO**
+  - `2001`: PEDAGOGIA: **SELECIONADO**
+  - `4004`: CIÊNCIAS DA COMPUTAÇÃO: **SELECIONADO**
   - `13`: CIÊNCIAS ECONÔMICAS
   - `18`: PSICOLOGIA
   - `22`: CIÊNCIAS CONTÁBEIS
@@ -92,8 +83,6 @@ Valores:
   - `106`: TECNOLOGIA EM GESTÃO PÚBLICA
   - `803`: COMUNICAÇÃO SOCIAL: JORNALISMO
   - `804`: COMUNICAÇÃO SOCIAL: PUBLICIDADE E PROPAGANDA
-  - `2001`: PEDAGOGIA: **SELECIONADO**
-  - `4004`: CIÊNCIAS DA COMPUTAÇÃO: **SELECIONADO**
 
 - Região do Curso - `CO_REGIAO_CURSO`:
   - `1`: Região Norte (NO)
@@ -149,57 +138,3 @@ Valores:
   - `E`: De 6 a 10 salários mínimos (R$ 5.724,01 a R$ 9.540,00)
   - `F`: De 10 a 30 salários mínimos (R$ 9.540,01 a R$ 28.620,00)
   - `G`: Acima de 30 salários mínimos (mais de R$ 28.620,00)
-
-## Variáveis do Censo do Ensino Superior
-
-### Censo - IES
-
-- Categoria Administrativa - `TP_CATEGORIA_ADMINISTRATIVA`:
-  - `1`, `2`, `3` e `7`: Pública
-  - `4`, `5`, `6`, `8` e `9`: Privada
-- Organização Acadêmica - `TP_ORGANIZACAO_ACADEMICA`:
-  - `1`: Universidade
-  - `2`: Centro Universitário
-  - `3`: Faculdade
-  - `4` e `5`: Centros Federais e Institutos Federais (removidos)
-- Biblioteca possui Internet - `IN_SERVICO_INTERNET`:
-  - `0`: Não
-  - `1`: Sim
-- Despesas de Investimentos realizadas pela IES ou Mantenedora - `VL_DESPESA_INVESTIMENTO`
-
-### Censo - Curso
-
-- Grau Acadêmica - `TP_GRAU_ACADEMICO`:
-  - `1`: Bacharelado
-  - `2`: Licenciatura
-  - `3`: Tecnológico
-  - `4`: Bacharelado e Licenciatura (apenas 2009)
-- Modalidade de Ensino - `TP_MODALIDADE_ENSINO`:
-  - `1`: Educação Presencial - **SELECIONADO**
-  - `2`: Educação a Distância
-
-### Censo - Docente
-
-- Sexo - `TP_SEXO`:
-  - `1`: Feminino
-  - `2`: Masculino
-- Escolaridade - `TP_ESCOLARIDADE`:
-  - `1`: Sem Graduação
-  - `2`: Graduação
-  - `3`: Especialização
-  - `4`: Mestrado
-  - `5`: Doutorado
-- Regime de Trabalho - `TP_REGIME_TRABALHO`:
-  - `1`: Tempo Integral com Dedicação Exclusiva
-  - `2`: Tempo Integral sem Dedicação Exclusiva
-  - `3`: Tempo Parcial
-  - `4`: Horista
-- Idade - `NU_IDADE`
-- Cor/Raça - `TP_COR_RACA`:
-  - `0`: Não quero declarar
-  - `1`: Branca
-  - `2`: Preta
-  - `3`: Parda
-  - `4`: Amarela
-  - `5`: Indígena
-  - `9`: Não disponível
