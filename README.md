@@ -2,7 +2,8 @@
 
 A escala [TPACK](https://www.sciencedirect.com/science/article/pii/S0360131511002569).
 
-SEM com Variáveis Latentes sendo os `T`, `P` e `K` do TPACK e as perguntas `QE` sendo items das VLs, sendo que um item pode estar alocado em mais de uma VL.
+SEM com Variáveis Latentes sendo os `T`, `P` e `K` do TPACK e as perguntas `QE` sendo items das VLs,
+sendo que um item pode estar alocado em mais de uma VL.
 
 ## Variáveis do ENADE
 
@@ -53,11 +54,11 @@ Valores:
 ### ENADE - Curso
 
 - Área do Curso no ENADE - `CO_GRUPO`:
-  - `1`: ADMINISTRAÇÃO: **SELECIONADO**
-  - `2`: DIREITO: **SELECIONADO**
-  - `12`: MEDICINA: **SELECIONADO**
-  - `2001`: PEDAGOGIA: **SELECIONADO**
-  - `4004`: CIÊNCIAS DA COMPUTAÇÃO: **SELECIONADO**
+  - `1`: ADMINISTRAÇÃO: **SELECIONADO** (74.145 alunos)
+  - `2`: DIREITO
+  - `12`: MEDICINA
+  - `2001`: PEDAGOGIA
+  - `4004`: CIÊNCIAS DA COMPUTAÇÃO
   - `13`: CIÊNCIAS ECONÔMICAS
   - `18`: PSICOLOGIA
   - `22`: CIÊNCIAS CONTÁBEIS

@@ -35,5 +35,5 @@ function csv2arrow_censo(year)
     return nothing
 end
 
-map(csv2arrow_enade, 2015:2019)
-map(csv2arrow_censo, 2015:2019)
+map(csv2arrow_enade, 2017:2019)
+#map(csv2arrow_censo, 2017:2019)
