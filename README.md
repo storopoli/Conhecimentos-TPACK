@@ -48,7 +48,7 @@ Valores:
 - Organização Acadêmica - `CO_ORGACAD`:
   - `10022`: Faculdade `1`
   - `10020`: Centro Universitário `2`
-  - `10028`: Universidade `3`
+  - `10028`: Universidade `3` **SELECIONADO**
   - `10019` e `10026`: Centros Federais e Institutos Federais (removidos)
 
 ### ENADE - Curso
