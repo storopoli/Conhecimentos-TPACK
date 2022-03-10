@@ -18,44 +18,58 @@ q25(x) = quantile(x, 0.25)
 q75(x) = quantile(x, 0.75)
 fun_vec = [mean minimum median std maximum q25 q75]
 
+# Total de IES
+CSV.write(joinpath(pwd(), "tables", "summary_ies.csv"))(
+    combine(groupby(df, :CO_CATEGAD_PRIVADA), :CO_IES => length ∘ unique)
+)
+CSV.write(joinpath(pwd(), "tables", "summary_ies_univ.csv"))(
+    combine(groupby(df_univ, :CO_CATEGAD_PRIVADA), :CO_IES => length ∘ unique)
+)
+
 # Por Categoria
 CSV.write(joinpath(pwd(), "tables", "summary_categ.csv"))(
     combine(
-            groupby(df, :CO_CATEGAD_PRIVADA),
-        :CO_GRUPO => length => :QTD_ALUNOS, Between(:NT_GER, :QE_I65) .=> fun_vec,
+        groupby(df, :CO_CATEGAD_PRIVADA),
+        :CO_GRUPO => length => :QTD_ALUNOS,
+        Between(:NT_GER, :QE_I65) .=> fun_vec,
     ),
 )
 CSV.write(joinpath(pwd(), "tables", "summary_categ_univ.csv"))(
     combine(
-            groupby(df_univ, :CO_CATEGAD_PRIVADA),
-        :CO_GRUPO => length => :QTD_ALUNOS, Between(:NT_GER, :QE_I65) .=> fun_vec,
+        groupby(df_univ, :CO_CATEGAD_PRIVADA),
+        :CO_GRUPO => length => :QTD_ALUNOS,
+        Between(:NT_GER, :QE_I65) .=> fun_vec,
     ),
 )
 
 # Por Categoria/Curso
 CSV.write(joinpath(pwd(), "tables", "summary_curso.csv"))(
     combine(
-            groupby(df, [:CO_CATEGAD_PRIVADA, :CO_GRUPO]),
-        :CO_GRUPO => length => :QTD_ALUNOS, Between(:NT_GER, :QE_I65) .=> fun_vec,
+        groupby(df, [:CO_CATEGAD_PRIVADA, :CO_GRUPO]),
+        :CO_GRUPO => length => :QTD_ALUNOS,
+        Between(:NT_GER, :QE_I65) .=> fun_vec,
     ),
 )
 CSV.write(joinpath(pwd(), "tables", "summary_curso_univ.csv"))(
     combine(
-            groupby(df_univ, [:CO_CATEGAD_PRIVADA, :CO_GRUPO]),
-        :CO_GRUPO => length => :QTD_ALUNOS, Between(:NT_GER, :QE_I65) .=> fun_vec,
+        groupby(df_univ, [:CO_CATEGAD_PRIVADA, :CO_GRUPO]),
+        :CO_GRUPO => length => :QTD_ALUNOS,
+        Between(:NT_GER, :QE_I65) .=> fun_vec,
     ),
 )
 
 # Por Categoria/Curso/Regiao
 CSV.write(joinpath(pwd(), "tables", "summary_regiao.csv"))(
     combine(
-            groupby(df, [:CO_CATEGAD_PRIVADA, :CO_GRUPO, :CO_REGIAO_CURSO]),
-        :CO_GRUPO => length => :QTD_ALUNOS, Between(:NT_GER, :QE_I65) .=> fun_vec,
+        groupby(df, [:CO_CATEGAD_PRIVADA, :CO_GRUPO, :CO_REGIAO_CURSO]),
+        :CO_GRUPO => length => :QTD_ALUNOS,
+        Between(:NT_GER, :QE_I65) .=> fun_vec,
     ),
 )
 CSV.write(joinpath(pwd(), "tables", "summary_regiao_univ.csv"))(
     combine(
-            groupby(df_univ, [:CO_CATEGAD_PRIVADA, :CO_GRUPO, :CO_REGIAO_CURSO]),
-        :CO_GRUPO => length => :QTD_ALUNOS, Between(:NT_GER, :QE_I65) .=> fun_vec,
+        groupby(df_univ, [:CO_CATEGAD_PRIVADA, :CO_GRUPO, :CO_REGIAO_CURSO]),
+        :CO_GRUPO => length => :QTD_ALUNOS,
+        Between(:NT_GER, :QE_I65) .=> fun_vec,
     ),
 )
