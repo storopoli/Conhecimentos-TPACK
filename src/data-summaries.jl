@@ -20,10 +20,10 @@ fun_vec = [mean minimum median std maximum q25 q75]
 
 # Total de IES
 CSV.write(joinpath(pwd(), "tables", "summary_ies.csv"))(
-    combine(groupby(df, :CO_CATEGAD_PRIVADA), :CO_IES => length ∘ unique)
+    combine(groupby(df, :CO_CATEGAD_PRIVADA), :CO_IES => length ∘ unique => "N_IES")
 )
 CSV.write(joinpath(pwd(), "tables", "summary_ies_univ.csv"))(
-    combine(groupby(df_univ, :CO_CATEGAD_PRIVADA), :CO_IES => length ∘ unique)
+    combine(groupby(df_univ, :CO_CATEGAD_PRIVADA), :CO_IES => length ∘ unique => "N_IES")
 )
 
 # Por Categoria
