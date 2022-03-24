@@ -157,4 +157,8 @@ select!(df, Between(1, :CO_IES), :CO_CATEGAD_PRIVADA, :CO_ORGACAD_NUM, :)
 # 295,500 para 288,769
 dropmissing!(df)
 
+# Selecionando apenas presencial CO_MODALIDADE = 1
+# 288,769 para 236,266
+filter!(row -> row.CO_MODALIDADE == 1, df)
+
 Arrow.write(joinpath(pwd(), "data", "data.arrow"); compress=:lz4)(df)
