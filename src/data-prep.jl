@@ -22,6 +22,8 @@ vars = [
     :NT_GER,
     :NT_FG,
     :NT_CE,
+    :TP_PRES,
+    :TP_PR_GER,
     :QE_I58,
     :QE_I28,
     :QE_I39,
@@ -134,13 +136,13 @@ transform!(df, [:QE_I05_NUM, :QE_I08_NUM] .=> ByRow(levelcode); renamecols=false
 
 # Removendo 7 não se aplica e 8 não sei responder
 # 318,134 para 296,599
-transform!(df, names(df)[6:22] .=> ByRow(x -> ifelse(x >= 7, missing, x)); renamecols=false)
+transform!(df, names(df)[8:24] .=> ByRow(x -> ifelse(x >= 7, missing, x)); renamecols=false)
 dropmissing!(df, Between(:QE_I56, :QE_I65))
 
 # Tipo IES
-# Removidos Centros Federais e Institutos Federais
-# 296,599 para 295,500
-filter!(row -> row.CO_ORGACAD ∉ [10026, 10019], df)
+# Mantido apenas Universidade
+# 296,599 para 138,474
+filter!(row -> row.CO_ORGACAD == 10028, df)
 transform!(
     df,
     :CO_CATEGAD =>
@@ -154,11 +156,17 @@ transform!(df, :CO_ORGACAD_NUM => ByRow(levelcode); renamecols=false)
 select!(df, Between(1, :CO_IES), :CO_CATEGAD_PRIVADA, :CO_ORGACAD_NUM, :)
 
 # Removendo mais missings
-# 295,500 para 288,769
+# 138,474 para 134,555
 dropmissing!(df)
 
 # Selecionando apenas presencial CO_MODALIDADE = 1
-# 288,769 para 236,266
+# 134,555 para 103,914
 filter!(row -> row.CO_MODALIDADE == 1, df)
+
+# Selecionando apenas presenca valida
+# :TP_PRES e TP_PR_GER = 555
+# 103,914 para 103,759
+filter!(row -> row.TP_PRES == 555, df)
+filter!(row -> row.TP_PR_GER == 555, df)
 
 Arrow.write(joinpath(pwd(), "data", "data.arrow"); compress=:lz4)(df)
