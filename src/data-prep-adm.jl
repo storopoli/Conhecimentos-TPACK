@@ -12,7 +12,8 @@ vars = [
         :NT_GER, :NT_FG, :NT_CE,
         :QE_I58, :QE_I29, :QE_I57,
         :CO_REGIAO_CURSO, :CO_CATEGAD_PRIVADA,
-        :NU_IDADE, :TP_SEXO_MASC, :QE_I02_BRANCA, :QE_I17_PRIVADO
+        :NU_IDADE, :TP_SEXO_MASC, :QE_I02_BRANCA, :QE_I17_PRIVADO,
+        :CO_IES, :QE_I08_NUM, :CO_GRUPO
        ]
 
 select!(df_adm, vars)
