@@ -23,7 +23,6 @@ vars = [
     :NT_FG,
     :NT_CE,
     :TP_PRES,
-    :TP_PR_GER,
     :QE_I58,
     :QE_I28,
     :QE_I39,
@@ -164,9 +163,8 @@ dropmissing!(df)
 filter!(row -> row.CO_MODALIDADE == 1, df)
 
 # Selecionando apenas presenca valida
-# :TP_PRES e TP_PR_GER = 555
-# 103,914 para 103,759
+# :TP_PRES = 555
+# 103,914 para 99,978
 filter!(row -> row.TP_PRES == 555, df)
-filter!(row -> row.TP_PR_GER == 555, df)
 
 Arrow.write(joinpath(pwd(), "data", "data.arrow"); compress=:lz4)(df)
