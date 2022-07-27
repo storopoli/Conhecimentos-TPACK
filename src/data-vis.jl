@@ -2,7 +2,7 @@ using AlgebraOfGraphics
 using Arrow
 using CategoricalArrays
 using DataFrames
-using GLMakie
+using CairoMakie
 using Statistics
 
 df = DataFrame(Arrow.Table(joinpath(pwd(), "data", "data.arrow")))
