@@ -188,12 +188,11 @@ function tpack_nota(df::DataFrame, type::AbstractString; nota::Symbol=:NT_GER)
         )
     elseif type == "c"
         # TPACK C
-        vars = [:QE_I28, :QE_I39, :QE_I49, :QE_I57]
+        vars = :QE_I57
         plt =
             base_layers * mapping(
                 vars,
                 nota;
-                col=dims(1),
                 color=:CO_CATEGAD_PRIVADA =>
                     renamer([0 => "Pública", 1 => "Privada"]) => "Tipo de IES",
             )
@@ -211,12 +210,11 @@ function tpack_nota(df::DataFrame, type::AbstractString; nota::Symbol=:NT_GER)
         )
     elseif type == "p"
         # TPACK P
-        vars = [:QE_I29, :QE_I30, :QE_I32, :QE_I36, :QE_I40]
+        vars = :QE_I29
         plt =
             base_layers * mapping(
                 vars,
                 nota;
-                col=dims(1),
                 color=:CO_CATEGAD_PRIVADA =>
                     renamer([0 => "Pública", 1 => "Privada"]) => "Tipo de IES",
             )
@@ -265,12 +263,11 @@ function tpack_nota_curso(df::DataFrame, type::AbstractString, curso::Integer; n
         )
     elseif type == "c"
         # TPACK C
-        vars = [:QE_I28, :QE_I39, :QE_I49, :QE_I57]
+        vars = :QE_I57
         plt =
             base_layers * mapping(
                 vars,
                 nota;
-                col=dims(1),
                 color=:CO_CATEGAD_PRIVADA =>
                     renamer([0 => "Pública", 1 => "Privada"]) => "Tipo de IES",
             )
@@ -288,12 +285,11 @@ function tpack_nota_curso(df::DataFrame, type::AbstractString, curso::Integer; n
         )
     elseif type == "p"
         # TPACK P
-        vars = [:QE_I29, :QE_I30, :QE_I32, :QE_I36, :QE_I40]
+        vars = :QE_I29
         plt =
             base_layers * mapping(
                 vars,
                 nota;
-                col=dims(1),
                 color=:CO_CATEGAD_PRIVADA =>
                     renamer([0 => "Pública", 1 => "Privada"]) => "Tipo de IES",
             )

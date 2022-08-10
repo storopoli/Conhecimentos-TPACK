@@ -1,11 +1,11 @@
 # Conhecimentos TPACK
 
-A escala [TPACK](https://www.sciencedirect.com/science/article/pii/S0360131511002569).
+Este repositório contém os dados e código para reproduzir a anaálise
+do paper "TITULO" publicado no "JOURNAL".
 
-SEM com Variáveis Latentes sendo os `T`, `P` e `K` do TPACK e as perguntas `QE` sendo items das VLs,
-sendo que um item pode estar alocado em mais de uma VL.
+TODO: Inserir citação APA.
 
-## Variáveis do ENADE
+## Dicionário de Dados
 
 ### ENADE - Desempenho do Aluno
 
@@ -27,18 +27,15 @@ Valores:
 - `8` - Não sei responder
 
 - `T` (Tecnologia):
-  - `QE_I58`: Os professores utilizarão tecnologias da informação e comunicação (TICs) como estratégia de ensino (projetor, multimídia, laboratórios de informática, ambiente virtual de aprendizagem).
+  - `QE_I58`: Os professores utilizarão tecnologias da informação e
+              comunicação (TICs) como estratégia de ensino
+              (projetor, multimídia, laboratórios de informática,
+               ambiente virtual de aprendizagem).
 - `C` (Conteúdo):
-  - `QE_I28`: Os conteúdos abordados nas disciplinas do curso favoreceram sua atuação em estágios ou em atividades de iniciação profissional.
-  - `QE_I39`: As referências bibliográficas indicadas pelos professores nos planos de ensino contribuíram para seus estudos e aprendizagens.
-  - `QE_I49`: O curso propiciou acesso a conhecimentos atualizados e/ou contemporâneos em sua área de formação.
   - `QE_I57`: Os professores demonstraram domínio dos conteúdos abordados nas disciplinas.
 - `P` (Pedagogia):
-  - `QE_I29`: As metodologias de ensino utilizadas no curso desafiaram você a aprofundar conhecimentos e desenvolver competências reflexivas e críticas.
-  - `QE_I30`: O curso propiciou experiências de aprendizagem inovadoras.
-  - `QE_I32`: No curso você teve oportunidade de aprender a trabalhar em equipe.
-  - `QE_I36`: O curso contribuiu para o desenvolvimento da sua capacidade de aprender e atualizar-se permanentemente.
-  - `QE_I40`: Foram oferecidas oportunidades para os estudantes superarem problemas e dificuldades relacionados ao processo de formação.
+  - `QE_I29`: As metodologias de ensino utilizadas no curso desafiaram você a
+              aprofundar conhecimentos e desenvolver competências reflexivas e críticas.
 
 ### ENADE - IES
 
