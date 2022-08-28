@@ -92,7 +92,7 @@ end
 model_ger = varying_intercept_ncp_regression(X, idx_regiao, idx_privada, nt_ger)
 model_fg = varying_intercept_ncp_regression(X, idx_regiao, idx_privada, nt_fg)
 model_ce = varying_intercept_ncp_regression(X, idx_regiao, idx_privada, nt_ce)
-model_pca = varying_intercept_ncp_regression(X_pca, idx_regiao, idx_privada, nt_ce)
+model_pca = varying_intercept_ncp_regression(X_pca, idx_regiao, idx_privada, nt_ger)
 
 # run chains
 chn_ger = sample(model_ger, NUTS(), MCMCThreads(), 2_000, 4)
@@ -101,16 +101,16 @@ chn_ce = sample(model_ce, NUTS(), MCMCThreads(), 2_000, 4)
 chn_pca = sample(model_pca, NUTS(), MCMCThreads(), 2_000, 4)
 
 # save summarystats
-CSV.write(joinpath(pwd(), "results", "turing_ger.csv"), summarystats(chn_ger))
-CSV.write(joinpath(pwd(), "results", "turing_fg.csv"), summarystats(chn_fg))
-CSV.write(joinpath(pwd(), "results", "turing_ce.csv"), summarystats(chn_ce))
-CSV.write(joinpath(pwd(), "results", "turing_pca.csv"), summarystats(chn_ce))
+CSV.write(joinpath(pwd(), "results", "turing_summarystats_ger.csv"), summarystats(chn_ger))
+CSV.write(joinpath(pwd(), "results", "turing_summarystats_fg.csv"), summarystats(chn_fg))
+CSV.write(joinpath(pwd(), "results", "turing_summarystats_ce.csv"), summarystats(chn_ce))
+CSV.write(joinpath(pwd(), "results", "turing_summarystats_pca.csv"), summarystats(chn_pca))
 
 # save quantiles
-CSV.write(joinpath(pwd(), "results", "turing_ger.csv"), quantile(chn_ger))
-CSV.write(joinpath(pwd(), "results", "turing_fg.csv"), quantile(chn_fg))
-CSV.write(joinpath(pwd(), "results", "turing_ce.csv"), quantile(chn_ce))
-CSV.write(joinpath(pwd(), "results", "turing_pca.csv"), quantile(chn_ce))
+CSV.write(joinpath(pwd(), "results", "turing_quantile_ger.csv"), quantile(chn_ger))
+CSV.write(joinpath(pwd(), "results", "turing_quantile_fg.csv"), quantile(chn_fg))
+CSV.write(joinpath(pwd(), "results", "turing_quantile_ce.csv"), quantile(chn_ce))
+CSV.write(joinpath(pwd(), "results", "turing_quantile_pca.csv"), quantile(chn_pca))
 
 # β/β_pca:
 # 1. QE_I58
