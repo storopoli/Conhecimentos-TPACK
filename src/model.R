@@ -101,7 +101,7 @@ stan_data_ce <- list(
   std_y = df$NT_CE %>% sd()
 )
 
-stan_data_pca <- list(
+stan_data_pca_ger <- list(
   X = df %>% select(
     tpack_pca,
     NU_IDADE:QE_I08_NUM
@@ -122,17 +122,63 @@ stan_data_pca <- list(
   std_y = df$NT_GER %>% sd()
 )
 
+stan_data_pca_fg <- list(
+  X = df %>% select(
+    tpack_pca,
+    NU_IDADE:QE_I08_NUM
+  ) %>%
+    as.matrix(),
+  y = df$NT_FG,
+  N = df %>% nrow(),
+  K = df %>% select(
+    tpack_pca,
+    NU_IDADE:QE_I08_NUM
+  ) %>%
+    ncol(),
+  J1 = df$CO_REGIAO_CURSO %>% unique() %>% length(),
+  J2 = df$CO_CATEGAD_PRIVADA %>% unique() %>% length(),
+  idx1 = df$CO_REGIAO_CURSO,
+  idx2 = df$CO_CATEGAD_PRIVADA + 1,
+  mean_y = df$NT_FG %>% mean(),
+  std_y = df$NT_FG %>% sd()
+)
+
+stan_data_pca_ce <- list(
+  X = df %>% select(
+    tpack_pca,
+    NU_IDADE:QE_I08_NUM
+  ) %>%
+    as.matrix(),
+  y = df$NT_CE,
+  N = df %>% nrow(),
+  K = df %>% select(
+    tpack_pca,
+    NU_IDADE:QE_I08_NUM
+  ) %>%
+    ncol(),
+  J1 = df$CO_REGIAO_CURSO %>% unique() %>% length(),
+  J2 = df$CO_CATEGAD_PRIVADA %>% unique() %>% length(),
+  idx1 = df$CO_REGIAO_CURSO,
+  idx2 = df$CO_CATEGAD_PRIVADA + 1,
+  mean_y = df$NT_CE %>% mean(),
+  std_y = df$NT_CE %>% sd()
+)
+
 # fit the models
 fit_ger <- m$sample(data = stan_data_ger, parallel_chains = 4)
 fit_fg <- m$sample(data = stan_data_fg, parallel_chains = 4)
 fit_ce <- m$sample(data = stan_data_ce, parallel_chains = 4)
-fit_pca <- m$sample(data = stan_data_pca, parallel_chains = 4)
+fit_pca_ger <- m$sample(data = stan_data_pca_ger, parallel_chains = 4)
+fit_pca_fg <- m$sample(data = stan_data_pca_fg, parallel_chains = 4)
+fit_pca_ce <- m$sample(data = stan_data_pca_ce, parallel_chains = 4)
 
 # save results
 fit_ger$summary() %>% write.csv("results/stan_ger.csv")
 fit_fg$summary() %>% write.csv("results/stan_fg.csv")
 fit_ce$summary() %>% write.csv("results/stan_ce.csv")
-fit_pca$summary() %>% write.csv("results/stan_pca.csv")
+fit_pca_ger$summary() %>% write.csv("results/stan_pca_ger.csv")
+fit_pca_fg$summary() %>% write.csv("results/stan_pca_fg.csv")
+fit_pca_ce$summary() %>% write.csv("results/stan_pca_ce.csv")
 # beta/beta_pca:
 # 1. QE_I58
 # 2. QE_I29
