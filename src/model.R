@@ -17,6 +17,11 @@ df %<>% mutate(
   tech_content = QE_I58 * QE_I57,
   tech_pedag = QE_I58 * QE_I29,
   content_pedag = QE_I57 * QE_I29,
+  adm = if_else(CO_GRUPO == 1, 1, 0),
+  direito = if_else(CO_GRUPO == 2, 1, 0),
+  med = if_else(CO_GRUPO == 12, 1, 0),
+  ped = if_else(CO_GRUPO == 2001, 1, 0),
+  comput = if_else(CO_GRUPO == 4004, 1, 0),
   tpack_pca = prcomp(
     as.matrix(cbind(QE_I58, QE_I57, QE_I29)),
     center = TRUE,
@@ -31,7 +36,8 @@ stan_data_ger <- list(
     starts_with("tech"),
     starts_with("content"),
     starts_with("pedag"),
-    NU_IDADE:QE_I08_NUM
+    NU_IDADE:QE_I08_NUM,
+    adm:comput
   ) %>%
     as.matrix(),
   y = df$NT_GER,
@@ -40,7 +46,8 @@ stan_data_ger <- list(
     starts_with("tech"),
     starts_with("content"),
     starts_with("pedag"),
-    NU_IDADE:QE_I08_NUM
+    NU_IDADE:QE_I08_NUM,
+    adm:comput
   ) %>%
     ncol(),
   J1 = df$CO_REGIAO_CURSO %>% unique() %>% length(),
@@ -56,7 +63,8 @@ stan_data_fg <- list(
     starts_with("tech"),
     starts_with("content"),
     starts_with("pedag"),
-    NU_IDADE:QE_I08_NUM
+    NU_IDADE:QE_I08_NUM,
+    adm:comput
   ) %>%
     as.matrix(),
   y = df$NT_FG,
@@ -65,7 +73,8 @@ stan_data_fg <- list(
     starts_with("tech"),
     starts_with("content"),
     starts_with("pedag"),
-    NU_IDADE:QE_I08_NUM
+    NU_IDADE:QE_I08_NUM,
+    adm:comput
   ) %>%
     ncol(),
   J1 = df$CO_REGIAO_CURSO %>% unique() %>% length(),
@@ -81,7 +90,8 @@ stan_data_ce <- list(
     starts_with("tech"),
     starts_with("content"),
     starts_with("pedag"),
-    NU_IDADE:QE_I08_NUM
+    NU_IDADE:QE_I08_NUM,
+    adm:comput
   ) %>%
     as.matrix(),
   y = df$NT_CE,
@@ -90,7 +100,8 @@ stan_data_ce <- list(
     starts_with("tech"),
     starts_with("content"),
     starts_with("pedag"),
-    NU_IDADE:QE_I08_NUM
+    NU_IDADE:QE_I08_NUM,
+    adm:comput
   ) %>%
     ncol(),
   J1 = df$CO_REGIAO_CURSO %>% unique() %>% length(),
@@ -176,9 +187,9 @@ fit_pca_ce <- m$sample(data = stan_data_pca_ce, parallel_chains = 4)
 fit_ger$summary() %>% write.csv("results/stan_ger.csv")
 fit_fg$summary() %>% write.csv("results/stan_fg.csv")
 fit_ce$summary() %>% write.csv("results/stan_ce.csv")
-fit_pca_ger$summary() %>% write.csv("results/stan_pca_ger.csv")
-fit_pca_fg$summary() %>% write.csv("results/stan_pca_fg.csv")
-fit_pca_ce$summary() %>% write.csv("results/stan_pca_ce.csv")
+fit_pca_ger$summary() %>% write.csv("results/pca/stan_pca_ger.csv")
+fit_pca_fg$summary() %>% write.csv("results/pca/stan_pca_fg.csv")
+fit_pca_ce$summary() %>% write.csv("results/pca/stan_pca_ce.csv")
 # beta/beta_pca:
 # 1. QE_I58
 # 2. QE_I29
@@ -193,6 +204,12 @@ fit_pca_ce$summary() %>% write.csv("results/stan_pca_ce.csv")
 # 11/6. QE_I05_NUM
 # 12/7. QE_I17_PRIVADO
 # 13/8. QE_I08_NUM
+# modelos com curso
+# 14. administracao
+# 15. direito
+# 16. medicina
+# 17. pedagogia
+# 18. ciencias da computacao
 
 # alpha_j:
 # alpha_j_1: CO_REGIAO_CURSO => 1=N, 2=NE, 3=SE, 4=S, 5=CO
