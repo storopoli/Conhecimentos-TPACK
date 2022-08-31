@@ -16,7 +16,7 @@ df = DataFrame(Arrow.Table(joinpath(pwd(), "data", "data.arrow")))
 
 # PCA
 # One component - Variance Explained 59.6%
-tpack = fit(PCA, select(df, [:QE_I58, :QE_I57, :QE_I29]) |> Matrix; maxoutdim=1);
+tpack = fit(PCA, Matrix(select(df, [:QE_I58, :QE_I57, :QE_I29])); maxoutdim=1);
 
 @transform! df begin
     :tech = :QE_I58
@@ -28,25 +28,10 @@ tpack = fit(PCA, select(df, [:QE_I58, :QE_I57, :QE_I29]) |> Matrix; maxoutdim=1)
     :tpack_pca = vec(tpack.proj)
 end
 
-
 # define data matrix X
-X = Matrix(
-    select(df,
-        Cols(
-            r"tech",
-            r"content",
-            r"pedag",
-            Between(:NU_IDADE, :QE_I08_NUM))
-    )
-)
+X = Matrix(select(df, Cols(r"tech", r"content", r"pedag", Between(:NU_IDADE, :QE_I08_NUM))))
 
-X_pca = Matrix(
-    select(df,
-        Cols(
-            :tpack_pca,
-            Between(:NU_IDADE, :QE_I08_NUM))
-    )
-)
+X_pca = Matrix(select(df, Cols(:tpack_pca, Between(:NU_IDADE, :QE_I08_NUM))))
 
 # define dependent variables y
 nt_ger = float(df[:, :NT_GER])
@@ -67,7 +52,7 @@ idx_privada = df[:, :CO_CATEGAD_PRIVADA] .+ 1 # index is {0=publica, 1=privada} 
     n_gr1=length(unique(idx1)),
     n_gr2=length(unique(idx2)),
     mean_y=mean(y),
-    std_y=std(y)
+    std_y=std(y),
 )
     # priors
     α ~ TDist(3) * (2.5 * std_y) + mean_y

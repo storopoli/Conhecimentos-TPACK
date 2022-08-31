@@ -234,7 +234,9 @@ function tpack_nota(df::DataFrame, type::AbstractString; nota::Symbol=:NT_GER)
     return f
 end
 
-function tpack_nota_curso(df::DataFrame, type::AbstractString, curso::Integer; nota::Symbol=:NT_GER)
+function tpack_nota_curso(
+    df::DataFrame, type::AbstractString, curso::Integer; nota::Symbol=:NT_GER
+)
     df_curso = filter(row -> row.CO_GRUPO == curso, df)
     base_layers = data(df_curso) * (linear())
     base_fig = (; resolution=(1600, 1200))
@@ -313,10 +315,28 @@ save(joinpath(pwd(), "figures", "densidade_enade.png"), density_enade(df))
 
 save(joinpath(pwd(), "figures", "violin_enade.png"), violin_enade(df))
 
-save(joinpath(pwd(), "figures", "scatter_tpack_t.png"), tpack_nota(df,"t"))
-save(joinpath(pwd(), "figures", "scatter_tpack_c.png"), tpack_nota(df,"c"))
-save(joinpath(pwd(), "figures", "scatter_tpack_p.png"), tpack_nota(df,"p"))
+save(joinpath(pwd(), "figures", "scatter_tpack_t.png"), tpack_nota(df, "t"))
+save(joinpath(pwd(), "figures", "scatter_tpack_c.png"), tpack_nota(df, "c"))
+save(joinpath(pwd(), "figures", "scatter_tpack_p.png"), tpack_nota(df, "p"))
 
-map(x -> save(joinpath(pwd(), "figures", "scatter_tpack_t_curso_$(x).png"), tpack_nota_curso(df, "t", x)), [1, 2, 12, 2001, 4004])
-map(x -> save(joinpath(pwd(), "figures", "scatter_tpack_c_curso_$(x).png"), tpack_nota_curso(df, "c", x)), [1, 2, 12, 2001, 4004])
-map(x -> save(joinpath(pwd(), "figures", "scatter_tpack_p_curso_$(x).png"), tpack_nota_curso(df, "p", x)), [1, 2, 12, 2001, 4004])
+map(
+    x -> save(
+        joinpath(pwd(), "figures", "scatter_tpack_t_curso_$(x).png"),
+        tpack_nota_curso(df, "t", x),
+    ),
+    [1, 2, 12, 2001, 4004],
+)
+map(
+    x -> save(
+        joinpath(pwd(), "figures", "scatter_tpack_c_curso_$(x).png"),
+        tpack_nota_curso(df, "c", x),
+    ),
+    [1, 2, 12, 2001, 4004],
+)
+map(
+    x -> save(
+        joinpath(pwd(), "figures", "scatter_tpack_p_curso_$(x).png"),
+        tpack_nota_curso(df, "p", x),
+    ),
+    [1, 2, 12, 2001, 4004],
+)
