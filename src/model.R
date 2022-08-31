@@ -184,9 +184,9 @@ fit_pca_fg <- m$sample(data = stan_data_pca_fg, parallel_chains = 4)
 fit_pca_ce <- m$sample(data = stan_data_pca_ce, parallel_chains = 4)
 
 # save results
-fit_ger$summary() %>% write.csv("results/stan_ger.csv")
-fit_fg$summary() %>% write.csv("results/stan_fg.csv")
-fit_ce$summary() %>% write.csv("results/stan_ce.csv")
+fit_ger$summary() %>% write.csv("results/curso/stan_ger.csv")
+fit_fg$summary() %>% write.csv("results/curso/stan_fg.csv")
+fit_ce$summary() %>% write.csv("results/curso/stan_ce.csv")
 fit_pca_ger$summary() %>% write.csv("results/pca/stan_pca_ger.csv")
 fit_pca_fg$summary() %>% write.csv("results/pca/stan_pca_fg.csv")
 fit_pca_ce$summary() %>% write.csv("results/pca/stan_pca_ce.csv")
