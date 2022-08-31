@@ -61,7 +61,6 @@ select!(df2019, vars)
 
 df = vcat(df2017, df2018, df2019)
 
-
 # Subset só dos Cursos de interesse
 cursos = [
     1,     # ADM
@@ -145,8 +144,9 @@ filter!(row -> row.CO_ORGACAD == 10028, df)
 transform!(
     df,
     :CO_CATEGAD =>
-        ByRow(x -> ifelse(x ∈ [10005, 10008, 118, 120, 121, 10006, 10009, 4, 5, 7], 1, 0)) =>
-            :CO_CATEGAD_PRIVADA,
+        ByRow(
+            x -> ifelse(x ∈ [10005, 10008, 118, 120, 121, 10006, 10009, 4, 5, 7], 1, 0)
+        ) => :CO_CATEGAD_PRIVADA,
     :CO_ORGACAD =>
         (x -> categorical(x; levels=[10022, 10020, 10028], ordered=true)) =>
             :CO_ORGACAD_NUM,
