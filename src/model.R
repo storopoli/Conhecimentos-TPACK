@@ -37,7 +37,7 @@ stan_data_ger <- list(
     starts_with("content"),
     starts_with("pedag"),
     NU_IDADE:QE_I08_NUM,
-    adm:comput
+    direito:comput
   ) %>%
     as.matrix(),
   y = df$NT_GER,
@@ -47,7 +47,7 @@ stan_data_ger <- list(
     starts_with("content"),
     starts_with("pedag"),
     NU_IDADE:QE_I08_NUM,
-    adm:comput
+    direito:comput
   ) %>%
     ncol(),
   J1 = df$CO_REGIAO_CURSO %>% unique() %>% length(),
@@ -64,7 +64,7 @@ stan_data_fg <- list(
     starts_with("content"),
     starts_with("pedag"),
     NU_IDADE:QE_I08_NUM,
-    adm:comput
+    direito:comput
   ) %>%
     as.matrix(),
   y = df$NT_FG,
@@ -74,7 +74,7 @@ stan_data_fg <- list(
     starts_with("content"),
     starts_with("pedag"),
     NU_IDADE:QE_I08_NUM,
-    adm:comput
+    direito:comput
   ) %>%
     ncol(),
   J1 = df$CO_REGIAO_CURSO %>% unique() %>% length(),
@@ -91,7 +91,7 @@ stan_data_ce <- list(
     starts_with("content"),
     starts_with("pedag"),
     NU_IDADE:QE_I08_NUM,
-    adm:comput
+    direito:comput
   ) %>%
     as.matrix(),
   y = df$NT_CE,
@@ -101,7 +101,7 @@ stan_data_ce <- list(
     starts_with("content"),
     starts_with("pedag"),
     NU_IDADE:QE_I08_NUM,
-    adm:comput
+    direito:comput
   ) %>%
     ncol(),
   J1 = df$CO_REGIAO_CURSO %>% unique() %>% length(),
@@ -184,9 +184,9 @@ fit_pca_fg <- m$sample(data = stan_data_pca_fg, parallel_chains = 4)
 fit_pca_ce <- m$sample(data = stan_data_pca_ce, parallel_chains = 4)
 
 # save results
-fit_ger$summary() %>% write.csv("results/stan_ger.csv")
-fit_fg$summary() %>% write.csv("results/stan_fg.csv")
-fit_ce$summary() %>% write.csv("results/stan_ce.csv")
+fit_ger$summary() %>% write.csv("results/curso/stan_ger.csv")
+fit_fg$summary() %>% write.csv("results/curso/stan_fg.csv")
+fit_ce$summary() %>% write.csv("results/curso/stan_ce.csv")
 fit_pca_ger$summary() %>% write.csv("results/pca/stan_pca_ger.csv")
 fit_pca_fg$summary() %>% write.csv("results/pca/stan_pca_fg.csv")
 fit_pca_ce$summary() %>% write.csv("results/pca/stan_pca_ce.csv")
@@ -204,12 +204,11 @@ fit_pca_ce$summary() %>% write.csv("results/pca/stan_pca_ce.csv")
 # 11/6. QE_I05_NUM
 # 12/7. QE_I17_PRIVADO
 # 13/8. QE_I08_NUM
-# modelos com curso
-# 14. administracao
-# 15. direito
-# 16. medicina
-# 17. pedagogia
-# 18. ciencias da computacao
+# modelos com curso baseline administracao
+# 14. direito
+# 15. medicina
+# 16. pedagogia
+# 17. ciencias da computacao
 
 # alpha_j:
 # alpha_j_1: CO_REGIAO_CURSO => 1=N, 2=NE, 3=SE, 4=S, 5=CO
