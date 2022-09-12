@@ -136,3 +136,39 @@ Valores:
   - `E`: De 6 a 10 salários mínimos (R$ 5.724,01 a R$ 9.540,00)
   - `F`: De 10 a 30 salários mínimos (R$ 9.540,01 a R$ 28.620,00)
   - `G`: Acima de 30 salários mínimos (mais de R$ 28.620,00)
+
+## Modelos
+
+- Variável Dependente: `NT_GER`
+- Variável Independente: `TPACK` em suas 7 composições:
+  - `T`: `QE_I58`
+  - `P`: `QE_I57`
+  - `C`: `QE_I29`
+  - `TP`/`PT`: `QE_I58 * QE_I57`
+  - `TC`/`CT`: `QE_I58 * QE_I29`
+  - `PC`/`CP`: `QE_I57 * QE_I29`
+  - `TPC`: `QE_I58 * QE_I57 * QE_I29`
+- Variáveis de Controle:
+  - Idade - `NU_IDADE`
+  - Sexo -  `TP_SEXO_MASC`
+  - Estado Civil - `QE_I01` (Solteiro e Não-Solteiro)
+  - Cor/Raça - `QE_I02` (Branca e Não-Branca)
+  - Escolarização da Mãe - `QE_I05` (Superior ou Não)
+  - Ensino Médio - `QE_I17` (Pública ou Privada)
+  - Renda Total Familiar - `QE_I08`
+  - Região do Curso - `CO_REGIAO_CURSO`:
+    - `1`: Região Norte (NO)
+    - `2`: Região Nordeste (NE)
+    - `3`: Região Sudeste (SE)
+    - `4`: Região Sul (SUL)
+    - `5`: Região Centro-Oeste (CO)
+- Variável "Hierárquica": Um $\beta$ para cada
+  - Curso `CO_GRUPO`:
+    - `1`: ADMINISTRAÇÃO
+    - `2`: DIREITO
+    - `12`: MEDICINA
+    - `2001`: PEDAGOGIA
+    - `4004`: CIÊNCIAS DA COMPUTAÇÃO
+  - Categoria Administrativa - `CO_CATEGAD`:
+    - `10005`, `10008`, `118`, `120`, `121`, `10006` e `10009`: IES privada
+    - `93`, `17634`, `115`, `116`, `10001`, `10002` e `10003`: IES pública
