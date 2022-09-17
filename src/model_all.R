@@ -9,7 +9,7 @@ df <- read_feather("data/data.arrow")
 # Stan model
 m <- cmdstan_model("src/model_all.stan")
 
-# Moderations and PCA
+# Moderations
 df %<>% mutate(
   tech = QE_I58,
   content = QE_I57,
