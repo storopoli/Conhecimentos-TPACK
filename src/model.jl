@@ -5,9 +5,14 @@ using LinearAlgebra
 using MultivariateStats
 using Statistics
 using Turing
+using ReverseDiff
 
 # reproducibility
 using Random: seed!
+
+# ReverseDiff backend
+Turing.setadbackend(:reversediff)
+Turing.setrdcache(true)
 
 seed!(123)
 
@@ -80,10 +85,10 @@ model_ce = varying_intercept_ncp_regression(X, idx_regiao, idx_privada, nt_ce)
 model_pca = varying_intercept_ncp_regression(X_pca, idx_regiao, idx_privada, nt_ger)
 
 # run chains
-chn_ger = sample(model_ger, NUTS(), MCMCThreads(), 2_000, 4)
-chn_fg = sample(model_fg, NUTS(), MCMCThreads(), 2_000, 4)
-chn_ce = sample(model_ce, NUTS(), MCMCThreads(), 2_000, 4)
-chn_pca = sample(model_pca, NUTS(), MCMCThreads(), 2_000, 4)
+chn_ger = sample(model_ger, NUTS(1_000, 0.8), MCMCThreads(), 2_000, 4)
+chn_fg = sample(model_fg, NUTS(1_000, 0.8), MCMCThreads(), 2_000, 4)
+chn_ce = sample(model_ce, NUTS(1_000, 0.8), MCMCThreads(), 2_000, 4)
+chn_pca = sample(model_pca, NUTS(1_000, 0.8), MCMCThreads(), 2_000, 4)
 
 # save summarystats
 CSV.write(joinpath(pwd(), "results", "turing_summarystats_ger.csv"), summarystats(chn_ger))
