@@ -1,7 +1,3 @@
-# Warning! This model is badly specified.
-# βⱼs is not a matrix like Zⱼs you need to fix it with:
-# for (j in 1:J) betaj[, j] = Z[, j] * tau[j];
-
 using Arrow
 using CSV
 using DataFramesMeta
@@ -29,15 +25,15 @@ function recode_curso(x::Int64)
     # CO_GRUPO == 2001 ~ 3, # pedagogia
     # CO_GRUPO == 4004 ~ 4, # computacao
     if x == 1
-        return 0 # adm (basal)
+        return 1 # adm
     elseif x == 2
-        return 1 # direito
+        return 2 # direito
     elseif x == 12
-        return 2 # medicina
+        return 3 # medicina
     elseif x == 2001
-        return 3 # pedagogia
+        return 4 # pedagogia
     elseif x == 4004
-        return 4 # computacao 
+        return 5 # computacao 
     end
 end
 
@@ -65,12 +61,11 @@ idx_privada = df[:, :CO_CATEGAD_PRIVADA] # index is {0=publica, 1=privada}
 # define the model
 @model function varying_slope_ncp_regression(
     X,
-    idx1,
-    # idx2,
+    idx,
     y;
+    N=size(X, 1),
     predictors=size(X, 2),
-    n_gr1=length(unique(idx1)) - 1, # adm is basal, index 0
-    # n_gr2=length(unique(idx2)) - 1, # publica is basal, index 0
+    n_gr=length(unique(idx)),
     mean_y=mean(y),
     std_y=std(y),
     βᵢ=7, # max index for random slopes
@@ -82,32 +77,15 @@ idx_privada = df[:, :CO_CATEGAD_PRIVADA] # index is {0=publica, 1=privada}
 
     # prior for variance of random slopes
     # usually requires thoughtful specification
-    τ_1 ~ filldist(truncated(Cauchy(0, 2); lower=0), n_gr1) # group-level SDs slopes
-    Zⱼ_1 ~ filldist(Normal(0, 1), βᵢ, n_gr1)                 # group-level non-centered slopes
-    βⱼ_1 = Zⱼ_1 * τ_1                                       # group-level slopes
-    # τ_2 ~ filldist(truncated(Cauchy(0, 2); lower=0), n_gr2) # group-level SDs slopes
-    # Zⱼ_2 ~ filldist(Normal(0, 1), predictors, n_gr2)        # group-level non-centered slopes
-    # βⱼ_2 = Zⱼ_2 * τ_2                                       # group-level slopes
+    τ ~ filldist(truncated(Cauchy(0, 2); lower=0), n_gr)                      # group-level SDs slopes
+    Zⱼ ~ arraydist([MvNormal(Diagonal(fill(1, βᵢ))) for j in 1:n_gr]) # group-level non-centered slopes
+    βⱼ = Zⱼ .* τ'                                                             # group-level slopes
 
     # likelihood
-
-    y ~ MvNormal(
-        α .+ X * β .+ X[:, 1:βᵢ] * βⱼ_1,
-        # .+ X * βⱼ_2,
-        σ^2 * I,
-    )
-    return (;
-        y,
-        α,
-        β,
-        σ,
-        βⱼ_1,
-        #βⱼ_2,
-        τ_1,
-        #τ_2,
-        Zⱼ_1,
-        # Zⱼ_2
-    )
+    for i in 1:N
+        y[i] ~ Normal(α + X[i, :] ⋅ β + X[i, 1:βᵢ] ⋅ βⱼ[1:βᵢ, idx[i]], σ)
+    end
+    return (; y, α, β, σ, βⱼ, τ)
 end
 
 # instantiate model
