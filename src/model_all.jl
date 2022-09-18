@@ -19,11 +19,11 @@ seed!(123)
 df = DataFrame(Arrow.Table(joinpath(pwd(), "data", "data.arrow")))
 
 function recode_curso(x::Int64)
-    # CO_GRUPO == 1 ~ 1, # adm
-    # CO_GRUPO == 2 ~ 2, # direito
-    # CO_GRUPO == 12 ~ 3, # medicina
-    # CO_GRUPO == 2001 ~ 4, # pedagogia
-    # CO_GRUPO == 4004 ~ 5, # computacao
+    # CO_GRUPO == 1 ~ 0, # adm
+    # CO_GRUPO == 2 ~ 1, # direito
+    # CO_GRUPO == 12 ~ 2, # medicina
+    # CO_GRUPO == 2001 ~ 3, # pedagogia
+    # CO_GRUPO == 4004 ~ 4, # computacao
     if x == 1
         return 0 # adm (basal)
     elseif x == 2
@@ -56,7 +56,7 @@ nt_ger = float(df[:, :NT_GER])
 
 # define vector of group memberships idx
 idx_curso = df[:, :curso]
-idx_privada = df[:, :CO_CATEGAD_PRIVADA] # index is {0=publica, 1=privada} so we need to be {1=publica,2=privada}
+idx_privada = df[:, :CO_CATEGAD_PRIVADA] # index is {0=publica, 1=privada}
 
 # define the model
 @model function varying_slope_ncp_regression(
@@ -69,6 +69,7 @@ idx_privada = df[:, :CO_CATEGAD_PRIVADA] # index is {0=publica, 1=privada} so we
     # n_gr2=length(unique(idx2)) - 1, # publica is basal, index 0
     mean_y=mean(y),
     std_y=std(y),
+    βᵢ=7, # max index for random slopes
 )
     # priors
     α ~ TDist(3) * (2.5 * std_y) + mean_y
@@ -78,15 +79,16 @@ idx_privada = df[:, :CO_CATEGAD_PRIVADA] # index is {0=publica, 1=privada} so we
     # prior for variance of random slopes
     # usually requires thoughtful specification
     τ_1 ~ filldist(truncated(Cauchy(0, 2); lower=0), n_gr1) # group-level SDs slopes
-    Zⱼ_1 ~ filldist(Normal(0, 1), predictors, n_gr1)        # group-level non-centered slopes
+    Zⱼ_1 ~ filldist(Normal(0, 1), βᵢ, n_gr1)                 # group-level non-centered slopes
     βⱼ_1 = Zⱼ_1 * τ_1                                       # group-level slopes
     # τ_2 ~ filldist(truncated(Cauchy(0, 2); lower=0), n_gr2) # group-level SDs slopes
     # Zⱼ_2 ~ filldist(Normal(0, 1), predictors, n_gr2)        # group-level non-centered slopes
     # βⱼ_2 = Zⱼ_2 * τ_2                                       # group-level slopes
 
     # likelihood
+
     y ~ MvNormal(
-        α .+ X * β .+ X * βⱼ_1,
+        α .+ X * β .+ X[:, 1:βᵢ] * βⱼ_1,
         # .+ X * βⱼ_2,
         σ^2 * I,
     )
@@ -113,15 +115,15 @@ model = varying_slope_ncp_regression(
 )
 
 # run chains
-chn_ger = sample(model, NUTS(1_000, 0.8), MCMCThreads(), 1_000, 4)
+chn = sample(model, NUTS(1_000, 0.8), MCMCThreads(), 1_000, 4)
 
 # save summarystats
 CSV.write(
-    joinpath(pwd(), "results", "all", "turing_summarystats_ger.csv"), summarystats(chn_ger)
+    joinpath(pwd(), "results", "all", "turing_summarystats_ger.csv"), summarystats(chn)
 )
 
 # save quantiles
-CSV.write(joinpath(pwd(), "results", "all", "turing_quantile_ger.csv"), quantile(chn_ger))
+CSV.write(joinpath(pwd(), "results", "all", "turing_quantile_ger.csv"), quantile(chn))
 
 # β:
 # 1. QE_I58                    tech
@@ -140,5 +142,5 @@ CSV.write(joinpath(pwd(), "results", "all", "turing_quantile_ger.csv"), quantile
 # 14. QE_I08_NUM
 
 # βⱼ:
-# βⱼ_1: CO_REGIAO_CURSO => 1=N, 2=NE, 3=SE, 4=S, 5=CO
-# βⱼ_2: CO_CATEGAD_PRIVADA => 1=PUBLICA, 2=PRIVADA
+# βⱼ_1: CURSO => 0=adm (basal), 2=direito, 3=medicina, 4=pedagogia, 5=computacao
+# βⱼ_2: CO_CATEGAD_PRIVADA => 0=PUBLICA, 1=PRIVADA

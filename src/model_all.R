@@ -24,11 +24,11 @@ df %<>% mutate(
   regiao_s = if_else(CO_REGIAO_CURSO == 4, 1, 0),
   regiao_co = if_else(CO_REGIAO_CURSO == 5, 1, 0),
   co_grupo = case_when(
-    CO_GRUPO == 1 ~ 1, # adm
-    CO_GRUPO == 2 ~ 2, # direito
-    CO_GRUPO == 12 ~ 3, # medicina
-    CO_GRUPO == 2001 ~ 4, # pedagogia
-    CO_GRUPO == 4004 ~ 5, # computacao
+    CO_GRUPO == 1 ~ 0, # adm (basal)
+    CO_GRUPO == 2 ~ 1, # direito
+    CO_GRUPO == 12 ~ 2, # medicina
+    CO_GRUPO == 2001 ~ 3, # pedagogia
+    CO_GRUPO == 4004 ~ 4, # computacao
   )
 )
 
@@ -53,11 +53,12 @@ stan_data <- list(
   ) %>%
     ncol(),
   J1 = df$co_grupo %>% unique() %>% length(),
-  J2 = df$CO_CATEGAD_PRIVADA %>% unique() %>% length(),
+  # J2 = df$CO_CATEGAD_PRIVADA %>% unique() %>% length(),
   idx1 = df$co_grupo,
-  idx2 = df$CO_CATEGAD_PRIVADA + 1,
+  # idx2 = df$CO_CATEGAD_PRIVADA, # index is {0=publica, 1=privada}
   mean_y = df$NT_GER %>% mean(),
-  std_y = df$NT_GER %>% sd()
+  std_y = df$NT_GER %>% sd(),
+  beta_i = 7
 )
 
 # fit the model
@@ -66,20 +67,20 @@ fit_all <- m$sample(data = stan_data, parallel_chains = 4)
 # save results
 fit_all$summary() %>% write.csv("results/all/results.csv")
 # beta:
-# 1. QE_I58
-# 2. QE_I29
-# 3. QE_I57
-# 4. QE_I58 * QE_I29
-# 5. QE_I58 * QE_I57
-# 6. QE_I57 * QE_I29
-# 7. QE_I58 * QE_I57 * QE_I29
-# 7. NU_IDADE
-# 8. TP_SEXO_MASC
-# 9. QE_I01_SOLTEIRO
-# 10. QE_I02_BRANCA
-# 11. QE_I05_NUM
-# 12. QE_I17_PRIVADO
-# 13. QE_I08_NUM
+# 1. QE_I58                    tech
+# 2. QE_I58 * QE_I29           tech_contet
+# 3. QE_I58 * QE_I57           tech_pedag
+# 4. QE_I58 * QE_I29 * QE_I57  tech_content_pedag
+# 5. QE_I29                    content
+# 6. QE_I57 * QE_I29           content_pedag
+# 7. QE_I57                    pedag
+# 8. NU_IDADE
+# 9. TP_SEXO_MASC
+# 1-. QE_I01_SOLTEIRO
+# 11. QE_I02_BRANCA
+# 12. QE_I05_NUM
+# 13. QE_I17_PRIVADO
+# 14. QE_I08_NUM
 # Regiao:
 # 14. N
 # 15. NE
@@ -88,5 +89,5 @@ fit_all$summary() %>% write.csv("results/all/results.csv")
 # 18. CO
 
 # betaj:
-# betaj1: CURSO => 1=adm, 2=direito, 3=medicina, 4=pedagogia, 5=computacao
+# betaj1: CURSO => 0=adm (basal), 2=direito, 3=medicina, 4=pedagogia, 5=computacao
 # betaj2: CO_CATEGAD_PRIVADA => 1=PUBLICA, 2=PRIVADA
