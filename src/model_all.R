@@ -65,7 +65,7 @@ stan_data <- list(
 fit_all <- m$sample(data = stan_data, parallel_chains = 4)
 
 # save results
-fit_all$summary() %>% write.csv("results/all/results.csv")
+fit_all$summary() %>% write.csv("results/all/results_nointeractions.csv")
 # beta:
 # 1. QE_I58                    tech
 # 2. QE_I29                    content
