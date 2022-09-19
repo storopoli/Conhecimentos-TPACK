@@ -123,9 +123,9 @@ CSV.write(
 CSV.write(joinpath(pwd(), "results", "all", "turing_quantile_ger.csv"), quantile(chn))
 
 # β:
-# 1. QE_I58                    tech
-# 2. QE_I29                    content
-# 3. QE_I57                    pedag
+# 1. QE_I58   -  tech
+# 2. QE_I29   -  content
+# 3. QE_I57   -  pedag
 # 4. NU_IDADE                
 # 5. TP_SEXO_MASC
 # 6. QE_I01_SOLTEIRO
@@ -134,6 +134,6 @@ CSV.write(joinpath(pwd(), "results", "all", "turing_quantile_ger.csv"), quantile
 # 9. QE_I17_PRIVADO
 # 10. QE_I08_NUM
 
-# βⱼ:
-# βⱼ_1: CURSO => 0=adm (basal), 2=direito, 3=medicina, 4=pedagogia, 5=computacao
+# βⱼ columns
+# βⱼ_1: CURSO => 1=adm, 2=direito, 3=medicina, 4=pedagogia, 5=computacao
 # βⱼ_2: CO_CATEGAD_PRIVADA => 0=PUBLICA, 1=PRIVADA
