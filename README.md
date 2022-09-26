@@ -1,6 +1,6 @@
 # Conhecimentos TPACK
 
-Este repositório contém os dados e código para reproduzir a anaálise
+Este repositório contém os dados e código para reproduzir a análise
 do paper "TITULO" publicado no "JOURNAL".
 
 TODO: Inserir citação APA.
