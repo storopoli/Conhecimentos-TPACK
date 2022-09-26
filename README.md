@@ -172,3 +172,9 @@ Valores:
   - Categoria Administrativa - `CO_CATEGAD`:
     - `10005`, `10008`, `118`, `120`, `121`, `10006` e `10009`: IES privada
     - `93`, `17634`, `115`, `116`, `10001`, `10002` e `10003`: IES pública
+    
+## Executar modelo Stan
+
+1. Siga as instrucoes de instalacao na documentacao do [`CmdStan`](https://mc-stan.org/docs/cmdstan-guide/cmdstan-installation.html).
+1. No diretorio da instalacao de `CmdStan` digite `make <caminho_para_diretorio_raiz>/src/model_all_brms`
+1. 
