@@ -4,6 +4,7 @@ library(posterior)
 library(arrow)
 library(dplyr)
 library(magrittr)
+library(jsonlite)
 
 # Data
 df <- read_feather("data/data.arrow")
@@ -47,16 +48,50 @@ fit_all <- brm(form,
   family = gaussian(),
   prior = custom_priors,
   backend = "cmdstanr",
+  normalize = FALSE,
+  threads = threading(threads = parallel::detectCores()),
   cores = 4,
   chains = 4,
   iter = 2000
 )
 
 # save model
-stancode(fit_all) %>% writeLines(file.path("src", "model_all_brms.stan"))
+make_stancode(
+  form,
+  data = df,
+  family = gaussian(),
+  prior = custom_priors,
+  normalize = FALSE,
+  threads = threading(threads = parallel::detectCores()),
+  cores = 4,
+  chains = 4,
+  iter = 2000) %>% writeLines(file.path("src", "model_all_brms.stan"))
 
 # save data
-standata(fit_all) %>% saveRDS(file.path("data", "stan", "model_all_brms.rds"))
+make_standata(
+  form,
+  data = df,
+  family = gaussian(),
+  prior = custom_priors,
+  normalize = FALSE,
+  threads = threading(threads = parallel::detectCores()),
+  cores = 4,
+  chains = 4,
+  iter = 2000
+) %>% saveRDS(file.path("data", "stan", "model_all_brms.rds"))
+
+make_standata(
+  form,
+  data = df,
+  family = gaussian(),
+  prior = custom_priors,
+  normalize = FALSE,
+  threads = threading(threads = parallel::detectCores()),
+  cores = 4,
+  chains = 4,
+  iter = 2000
+) %>% toJSON(pretty = TRUE, auto_unbox = TRUE) %>% 
+  write(file.path("data", "stan", "model_all_brms.json"))
 
 # save results
 (draws_fit <- as_draws_array(fit_all))
