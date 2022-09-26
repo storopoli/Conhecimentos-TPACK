@@ -175,8 +175,8 @@ Valores:
     
 ## Executar modelo Stan
 
-1. Siga as instrucoes de instalacao na documentacao do [`CmdStan`](https://mc-stan.org/docs/cmdstan-guide/cmdstan-installation.html).
-  1. Nao se esqueca de setar `STAN_CPP_OPTIMS=true` e `STAN_THREADS=true` no arquivo `make/local`, ou siga as recomendacoes do `make/local.example`
-1. No diretorio da instalacao de `CmdStan` digite `make <caminho_para_diretorio_raiz>/src/model_all_brms`
+1. Siga as instruções de instalação na documentação do [`CmdStan`](https://mc-stan.org/docs/cmdstan-guide/cmdstan-installation.html).
+  1. Não se esqueça de setar `STAN_CPP_OPTIMS=true` e `STAN_THREADS=true` no arquivo `make/local` para amostragem em paralelo; ou siga as recomendações do arquivo `make/local.example`.
+1. No diretório da instalação de `CmdStan` digite `make <caminho_para_diretorio_raiz>/src/model_all_brms`.
 1. Execute o modelo com 4 correntes Markov paralelas `./model_all_brms sample num_chains=4 data file=model_all_brms.json file=model_all_brms.json output file=output.csv num_threads=4`
-1. As correntes Markov estarao em arquivos csv individuais: `output_1.csv`, `output_2.csv`, `output_3.csv`, `output_4.csv`.
+1. As correntes Markov estarão em arquivos `.csv` individuais: `output_1.csv`, `output_2.csv`, `output_3.csv`, `output_4.csv`.
