@@ -61,7 +61,7 @@ make_stancode(
   family = gaussian(),
   prior = custom_priors,
   normalize = FALSE,
-  threads = threading(threads = parallel::detectCores() / 4),
+  threads = threading(threads = parallel::detectCores()),
   cores = 4,
   chains = 4,
   iter = 2000) %>% writeLines(file.path("src", "model_brms.stan"))
@@ -73,7 +73,7 @@ make_standata(
   family = gaussian(),
   prior = custom_priors,
   normalize = FALSE,
-  threads = threading(threads = parallel::detectCores() / 4),
+  threads = threading(threads = parallel::detectCores()),
   cores = 4,
   chains = 4,
   iter = 2000
@@ -85,7 +85,7 @@ make_standata(
   family = gaussian(),
   prior = custom_priors,
   normalize = FALSE,
-  threads = threading(threads = parallel::detectCores() / 4),
+  threads = threading(threads = parallel::detectCores()),
   cores = 4,
   chains = 4,
   iter = 2000
