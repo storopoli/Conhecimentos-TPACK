@@ -181,4 +181,4 @@ Valores:
 1. Execute o modelo com 4 correntes Markov paralelas `./model_all_brms sample num_chains=4 data file=model_all_brms.json file=model_all_brms.json output file=output.csv num_threads=K`, onde `K` é o número de threads disponíveis para computação em paralelo.
 1. As correntes Markov estarão em arquivos `.csv` individuais: `output_1.csv`, `output_2.csv`, `output_3.csv`, `output_4.csv`.
 
-**Observação**: ajustar o valor `grainsize` do `model_all_brms.json` para `max(100, N / (2 * threads))`, onde `N` é o  número de observações nos dados (`99978`) arredondado para cima.
+**Observação**: ajustar o valor `grainsize` do `model_all_brms.json` para `max(100, N / (2 * threads))`, onde `N` é o  número de observações nos dados (`99978`) arredondado para cima e `threads` é o  número de threads disponíveis.

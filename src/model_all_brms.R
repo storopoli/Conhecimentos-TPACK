@@ -50,6 +50,7 @@ fit_all <- brm(form,
   backend = "cmdstanr",
   normalize = FALSE,
   threads = threading(threads = parallel::detectCores()),
+  output_dir = file.path("chains", "model_all"),
   cores = 4,
   chains = 4,
   iter = 2000
