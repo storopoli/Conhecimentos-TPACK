@@ -9,7 +9,7 @@ library(jsonlite)
 # Data
 df <- read_feather("data/data.arrow")
 
-# Variables
+# Variables 
 df %<>% mutate(
   tech = QE_I58,
   content = QE_I57,
@@ -32,7 +32,7 @@ df %<>% mutate(
 # brms formula
 form <- bf(NT_GER ~ 1
   # fixed effects
-  + pca
+  + tpack_pca
   # controles
   + NU_IDADE + TP_SEXO_MASC + QE_I01_SOLTEIRO + QE_I02_BRANCA + QE_I05_NUM
   + QE_I17_PRIVADO + QE_I08_NUM + CO_REGIAO_CURSO)
@@ -51,7 +51,7 @@ fit <- brm(form,
   data = df,
   family = gaussian(),
   prior = custom_priors,
-  # backend = "cmdstanr",
+  backend = "cmdstanr",
   normalize = FALSE,
   threads = threading(threads = parallel::detectCores()),
   output_dir = file.path("chains", "model"),
