@@ -6,6 +6,8 @@ library(dplyr)
 library(magrittr)
 library(jsonlite)
 
+nchains <- 4
+
 # Data
 df <- read_feather("data/data.arrow")
 
@@ -21,6 +23,7 @@ df %<>% mutate(
     CO_GRUPO == 2001 ~ 4, # pedagogia
     CO_GRUPO == 4004 ~ 5, # computacao
   ),
+  co_regiao = as.factor(CO_REGIAO_CURSO),
   tpack_pca = prcomp(
     as.matrix(cbind(QE_I58, QE_I57, QE_I29)),
     center = TRUE,
@@ -35,7 +38,7 @@ form <- bf(NT_GER ~ 1
   + tpack_pca
   # controles
   + NU_IDADE + TP_SEXO_MASC + QE_I01_SOLTEIRO + QE_I02_BRANCA + QE_I05_NUM
-  + QE_I17_PRIVADO + QE_I08_NUM + CO_REGIAO_CURSO)
+  + QE_I17_PRIVADO + QE_I08_NUM + co_regiao)
 
 mean_NT_GER <- mean(df$NT_GER) # 45.10
 sd_NT_GER <- sd(df$NT_GER) # 14 * 2.5 = 35
@@ -53,10 +56,9 @@ fit <- brm(form,
   prior = custom_priors,
   backend = "cmdstanr",
   normalize = FALSE,
-  threads = threading(threads = parallel::detectCores()),
+  threads = threading(threads = parallel::detectCores() / nchains),
   output_dir = file.path("chains", "model"),
-  cores = 4,
-  chains = 4,
+  chains = nchains,
   iter = 2000
 )
 
@@ -67,9 +69,8 @@ make_stancode(
   family = gaussian(),
   prior = custom_priors,
   normalize = FALSE,
-  threads = threading(threads = parallel::detectCores()),
-  cores = 4,
-  chains = 4,
+  threads = threading(threads = parallel::detectCores() / nchains),
+  chains = nchains,
   iter = 2000
 ) %>% writeLines(file.path("src", "model_pca_brms.stan"))
 
@@ -80,9 +81,8 @@ make_standata(
   family = gaussian(),
   prior = custom_priors,
   normalize = FALSE,
-  threads = threading(threads = parallel::detectCores()),
-  cores = 4,
-  chains = 4,
+  threads = threading(threads = parallel::detectCores() / nchains),
+  chains = nchains,
   iter = 2000
 ) %>% saveRDS(file.path("data", "stan", "model_pca_brms.rds"))
 
@@ -92,9 +92,8 @@ make_standata(
   family = gaussian(),
   prior = custom_priors,
   normalize = FALSE,
-  threads = threading(threads = parallel::detectCores()),
-  cores = 4,
-  chains = 4,
+  threads = threading(threads = parallel::detectCores() / nchains),
+  chains = nchains,
   iter = 2000
 ) %>%
   toJSON(pretty = TRUE, auto_unbox = TRUE) %>%

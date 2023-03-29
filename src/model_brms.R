@@ -6,6 +6,8 @@ library(dplyr)
 library(magrittr)
 library(jsonlite)
 
+nchains <- 4
+
 # Data
 df <- read_feather("data/data.arrow")
 
@@ -47,10 +49,9 @@ fit <- brm(form,
   prior = custom_priors,
   backend = "cmdstanr",
   normalize = FALSE,
-  threads = threading(threads = parallel::detectCores()),
+  threads = threading(threads = parallel::detectCores() / nchains),
   output_dir = file.path("chains", "model"),
-  cores = 4,
-  chains = 4,
+  chains = nchains,
   iter = 2000
 )
 
@@ -61,9 +62,8 @@ make_stancode(
   family = gaussian(),
   prior = custom_priors,
   normalize = FALSE,
-  threads = threading(threads = parallel::detectCores()),
-  cores = 4,
-  chains = 4,
+  threads = threading(threads = parallel::detectCores() / nchains),
+  chains = nchains,
   iter = 2000) %>% writeLines(file.path("src", "model_brms.stan"))
 
 # save data
@@ -73,9 +73,8 @@ make_standata(
   family = gaussian(),
   prior = custom_priors,
   normalize = FALSE,
-  threads = threading(threads = parallel::detectCores()),
-  cores = 4,
-  chains = 4,
+  threads = threading(threads = parallel::detectCores() / nchains),
+  chains = nchains,
   iter = 2000
 ) %>% saveRDS(file.path("data", "stan", "model_brms.rds"))
 
@@ -85,9 +84,8 @@ make_standata(
   family = gaussian(),
   prior = custom_priors,
   normalize = FALSE,
-  threads = threading(threads = parallel::detectCores()),
-  cores = 4,
-  chains = 4,
+  threads = threading(threads = parallel::detectCores() / nchains),
+  chains = nchains,
   iter = 2000
 ) %>% toJSON(pretty = TRUE, auto_unbox = TRUE) %>% 
   write(file.path("data", "stan", "model_brms.json"))
