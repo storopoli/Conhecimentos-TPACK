@@ -22,7 +22,8 @@ df %<>% mutate(
     CO_GRUPO == 12 ~ 3, # medicina
     CO_GRUPO == 2001 ~ 4, # pedagogia
     CO_GRUPO == 4004 ~ 5, # computacao
-  )
+  ),
+  co_regiao = as.factor(CO_REGIAO_CURSO)
 )
 
 # brms formula
@@ -31,7 +32,7 @@ form <- bf(NT_GER ~ 1
   + tech * pedag * content
   # controles
   + NU_IDADE + TP_SEXO_MASC + QE_I01_SOLTEIRO + QE_I02_BRANCA + QE_I05_NUM
-  + QE_I17_PRIVADO + QE_I08_NUM + CO_REGIAO_CURSO)
+  + QE_I17_PRIVADO + QE_I08_NUM + co_regiao)
 
 mean_NT_GER <- mean(df$NT_GER) # 45.10
 sd_NT_GER <- sd(df$NT_GER) # 14 * 2.5 = 35
