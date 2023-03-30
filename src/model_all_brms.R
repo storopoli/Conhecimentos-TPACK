@@ -6,6 +6,8 @@ library(dplyr)
 library(magrittr)
 library(jsonlite)
 
+nchains <- 4
+
 # Data
 df <- read_feather("data/data.arrow")
 
@@ -20,7 +22,8 @@ df %<>% mutate(
     CO_GRUPO == 12 ~ 3, # medicina
     CO_GRUPO == 2001 ~ 4, # pedagogia
     CO_GRUPO == 4004 ~ 5, # computacao
-  )
+  ),
+  co_regiao = as.factor(CO_REGIAO_CURSO)
 )
 
 # brms formula
@@ -30,7 +33,7 @@ form <- bf(NT_GER ~ 1
   + (0 + tech * pedag * content | CO_CATEGAD_PRIVADA)
   # controles
   + NU_IDADE + TP_SEXO_MASC + QE_I01_SOLTEIRO + QE_I02_BRANCA + QE_I05_NUM
-  + QE_I17_PRIVADO + QE_I08_NUM + CO_REGIAO_CURSO)
+  + QE_I17_PRIVADO + QE_I08_NUM + co_regiao)
 
 mean_NT_GER <- mean(df$NT_GER) # 45.10
 sd_NT_GER <- sd(df$NT_GER) # 14 * 2.5 = 35
@@ -49,10 +52,10 @@ fit_all <- brm(form,
   prior = custom_priors,
   backend = "cmdstanr",
   normalize = FALSE,
-  threads = threading(threads = parallel::detectCores()),
+  threads = threading(threads = parallel::detectCores() / nchains),
   output_dir = file.path("chains", "model_all"),
-  cores = 4,
-  chains = 4,
+  cores = nchains,
+  chains = nchains,
   iter = 2000
 )
 
@@ -63,9 +66,9 @@ make_stancode(
   family = gaussian(),
   prior = custom_priors,
   normalize = FALSE,
-  threads = threading(threads = parallel::detectCores()),
-  cores = 4,
-  chains = 4,
+  threads = threading(threads = parallel::detectCores() / nchains),
+  chains = nchains,
+  cores = nchains,
   iter = 2000) %>% writeLines(file.path("src", "model_all_brms.stan"))
 
 # save data
@@ -75,9 +78,9 @@ make_standata(
   family = gaussian(),
   prior = custom_priors,
   normalize = FALSE,
-  threads = threading(threads = parallel::detectCores()),
-  cores = 4,
-  chains = 4,
+  threads = threading(threads = parallel::detectCores() / nchains),
+  cores = nchains,
+  chains = nchains,
   iter = 2000
 ) %>% saveRDS(file.path("data", "stan", "model_all_brms.rds"))
 
@@ -87,9 +90,9 @@ make_standata(
   family = gaussian(),
   prior = custom_priors,
   normalize = FALSE,
-  threads = threading(threads = parallel::detectCores()),
-  cores = 4,
-  chains = 4,
+  threads = threading(threads = parallel::detectCores() / nchains),
+  cores = nchains,
+  chains = nchains,
   iter = 2000
 ) %>% toJSON(pretty = TRUE, auto_unbox = TRUE) %>% 
   write(file.path("data", "stan", "model_all_brms.json"))
@@ -97,4 +100,4 @@ make_standata(
 # save results
 (draws_fit <- as_draws_array(fit_all))
 fit_summary <- summarize_draws(draws_fit)
-fit_summary %>% write.csv("results/all/results_brms.csv")
+fit_summary %>% write.csv("results/results_all_brms.csv")
