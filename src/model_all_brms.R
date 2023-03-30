@@ -54,6 +54,7 @@ fit_all <- brm(form,
   normalize = FALSE,
   threads = threading(threads = parallel::detectCores() / nchains),
   output_dir = file.path("chains", "model_all"),
+  cores = nchains,
   chains = nchains,
   iter = 2000
 )
@@ -67,6 +68,7 @@ make_stancode(
   normalize = FALSE,
   threads = threading(threads = parallel::detectCores() / nchains),
   chains = nchains,
+  cores = nchains,
   iter = 2000) %>% writeLines(file.path("src", "model_all_brms.stan"))
 
 # save data
@@ -77,8 +79,8 @@ make_standata(
   prior = custom_priors,
   normalize = FALSE,
   threads = threading(threads = parallel::detectCores() / nchains),
-  cores = 4,
-  chains = 4,
+  cores = nchains,
+  chains = nchains,
   iter = 2000
 ) %>% saveRDS(file.path("data", "stan", "model_all_brms.rds"))
 
@@ -89,6 +91,7 @@ make_standata(
   prior = custom_priors,
   normalize = FALSE,
   threads = threading(threads = parallel::detectCores() / nchains),
+  cores = nchains,
   chains = nchains,
   iter = 2000
 ) %>% toJSON(pretty = TRUE, auto_unbox = TRUE) %>% 
@@ -97,4 +100,4 @@ make_standata(
 # save results
 (draws_fit <- as_draws_array(fit_all))
 fit_summary <- summarize_draws(draws_fit)
-fit_summary %>% write.csv("results/all/results_brms.csv")
+fit_summary %>% write.csv("results/results_all_brms.csv")

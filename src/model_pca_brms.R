@@ -57,7 +57,8 @@ fit <- brm(form,
   backend = "cmdstanr",
   normalize = FALSE,
   threads = threading(threads = parallel::detectCores() / nchains),
-  output_dir = file.path("chains", "model"),
+  output_dir = file.path("chains", "model_pca"),
+  cores = nchains,
   chains = nchains,
   iter = 2000
 )
@@ -70,6 +71,7 @@ make_stancode(
   prior = custom_priors,
   normalize = FALSE,
   threads = threading(threads = parallel::detectCores() / nchains),
+  cores = nchains,
   chains = nchains,
   iter = 2000
 ) %>% writeLines(file.path("src", "model_pca_brms.stan"))
@@ -82,6 +84,7 @@ make_standata(
   prior = custom_priors,
   normalize = FALSE,
   threads = threading(threads = parallel::detectCores() / nchains),
+  cores = nchains,
   chains = nchains,
   iter = 2000
 ) %>% saveRDS(file.path("data", "stan", "model_pca_brms.rds"))
@@ -93,6 +96,7 @@ make_standata(
   prior = custom_priors,
   normalize = FALSE,
   threads = threading(threads = parallel::detectCores() / nchains),
+  cores = nchains,
   chains = nchains,
   iter = 2000
 ) %>%
